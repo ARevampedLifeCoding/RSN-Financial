@@ -29,21 +29,33 @@ function renderResults(apiData){
         newTr.appendChild(tdExchange);
 
         let tdAdd = document.createElement("td");
-        tdAdd.setAttribute("class", "add-line")
+        tdAdd.setAttribute("class", "add-line");
         let addBtn = document.createElement("button");
         addBtn.setAttribute("class", "button primary");
-        addBtn.setAttribute("id", "add-btn")
+        addBtn.setAttribute("id", "add-btn");
         addBtn.innerHTML = "ADD";
         tdAdd.appendChild(addBtn);
         newTr.appendChild(tdAdd);
+
+        let tdMore = document.createElement("td");
+        tdMore.setAttribute("class", "more-line");
+        let moreBtn = document.createElement("button");
+        moreBtn.setAttribute("class", "button secondary");
+        moreBtn.setAttribute("id", "more-btn");
+        moreBtn.innerHTML = "More Info";
+        tdMore.appendChild(moreBtn);
+        newTr.appendChild(tdMore);
 
         resultsTable.appendChild(newTr);   
     });
     $(".add-line").on("click", "button", function(event){
     let selectedName = $(this).closest("tr").children().first().text();
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    console.log(selectedName + " - " + selectedSymbol);
     // call function - printToList(selectedName, selectedSymbol) - verify function name once created.
+    });
+    $(".add-line").on("click", "button", function(event){
+    let selectedSymbol = $(this).closest("tr").children().eq(1).text();
+    // call function - detailedInfo(selectedSymbol);
     });
 }
 
