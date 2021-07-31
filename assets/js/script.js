@@ -37,13 +37,13 @@ function renderResults(apiData){
         tdAdd.appendChild(addBtn);
         newTr.appendChild(tdAdd);
 
-        resultsTable.appendChild(newTr);
-        // Having an issue with the event listener.
-        // $(".add-line").on("click", "button", function(event){
-        //     let selectedName = $(this).closest("tr").children($(":first-child")).text();
-        //     console.log(selectedName);
-        // });
-        
+        resultsTable.appendChild(newTr);   
+    });
+    $(".add-line").on("click", "button", function(event){
+    let selectedName = $(this).closest("tr").children().first().text();
+    let selectedSymbol = $(this).closest("tr").children().eq(1).text();
+    console.log(selectedName + " - " + selectedSymbol);
+    // call function - printToList(selectedName, selectedSymbol) - verify function name once created.
     });
 }
 
