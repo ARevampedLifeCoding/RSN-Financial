@@ -47,8 +47,6 @@ function renderResults(apiData){
     });
 }
 
-
-
 var stockSearch = function(searchTerm, exchangeChoice) {
 
     if (exchangeChoice !== "all") {
