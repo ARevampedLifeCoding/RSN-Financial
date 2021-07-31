@@ -1,0 +1,30 @@
+header {
+    text-align: center;
+}
+
+.custom-search {
+    text-align: center;
+}
+
+#results-box {
+    border: solid black 2px;
+    border-radius: 8px;
+    margin: 15px;
+    padding: 5px;
+}
+
+#search-box {
+    border: solid rgb(1, 1, 56) 2px;
+    border-radius: 8px;
+    background-color: rgb(22, 141, 189);
+    margin: 15px;
+    padding: 5px;
+}
+
+#your-list {
+    border: solid rgb(90, 89, 89) 2px;
+    border-radius: 8px;
+    background-color: darkgrey;
+    margin: 15px;
+    padding: 5px;
+}

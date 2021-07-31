@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSN Stock Selector</title>
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <h1>RSN Stock Selector</h1>
+        <h2>A simple tool for finding stock symbols and conducting research.</h2>
+    </header>
+
+    <div class="grid-x" id="research-section">
+        <div class="cell medium-8 medium-order-1 small-order-2" id="results-box">
+            <h3>Matching Results</h3>
+            <table class="striped" id="results-table">
+                <thead>
+                    <tr>
+                        <th width="200">Company Name</th>
+                        <th width="150">Ticker/Symbol</th>
+                        <th width="150">Currency</th>
+                        <th width="150">Exchange</th>
+                        <th width="75">Add to List</th>
+                    </tr>
+                </thead>
+                <!-- Will append the results here-->
+            </table>
+        </div>
+        <div class="cell auto medium-order-2 small-order-1 secondary" id="search-box">
+            <h3>Search Terms</h3>
+            <form id="search-form">
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell">
+                          <label>Company or Ticker:
+                            <input type="text" id="search-text" placeholder="Ex. Microsoft or MSFT">
+                          </label>
+                        </div>
+                        <div class="cell">
+                            <label>Exchange:
+                                <select id="exchange-select">
+                                    <option value="all">Not Specified</option>
+                                    <option value="etf">ETF</option>
+                                    <option value="mutual_fund">Mutual Fund</option>
+                                    <option value="commodity">Commodity</option>
+                                    <option value="index">Index</option>
+                                    <option value="crypto">Crypto</option>
+                                    <option value="forex">FOREX</option>
+                                    <option value="tsx">TSX</option>
+                                    <option value="amex">AMEX</option>
+                                    <option value="nasdaq">NASDAQ</option>
+                                    <option value="nyse">NYSE</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="cell custom-search">
+                            <button type="submit" class="secondary button">Search</button>
+                        </div>
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="grid-x">
+        <div class="cell auto" id="your-list">
+            <h3>Your List</h3>
+            <table class="striped" id="watch-list">
+                <thead>
+                    <tr>
+                        <th width="200">Company Name</th>
+                        <th width="150">Ticker/Symbol</th>
+                        <th width="150">Currency</th>
+                        <th width="150">Exchange</th>
+                        <th width="75">Remove</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
