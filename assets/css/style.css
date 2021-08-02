@@ -1,10 +1,19 @@
-header {
+#homepage-header {
     text-align: center;
 }
 
 .custom-search {
     text-align: center;
 }
+
+#details-header {
+    text-align: left;
+}
+
+#details-header h3 {
+    margin-left: 10px;
+}
+
 
 #results-box {
     border: solid black 2px;
