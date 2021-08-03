@@ -16,8 +16,7 @@ const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
 
 function init(){
-//    let ticker = JSON.parse(localStorage.getItem("ticker"));
-    let ticker = "MSFT";
+    let ticker = JSON.parse(localStorage.getItem("ticker"));
     fetch(baseStockUrl + "quote/" + ticker + financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
