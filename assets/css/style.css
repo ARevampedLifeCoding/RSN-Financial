@@ -30,6 +30,10 @@
     padding: 5px;
 }
 
+#stock-reference {
+    font-size: 3rem;
+}
+
 #your-list {
     border: solid rgb(90, 89, 89) 2px;
     border-radius: 8px;
