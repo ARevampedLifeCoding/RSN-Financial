@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Details</title>
 
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+    integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
+    crossorigin="anonymous"
+    />
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
@@ -26,10 +37,10 @@
                     <div class="cell" id="price-changes"></div>
                 </div>
                 <div class="grid-x">
-                    <div class="cell" id="day-hi"></div>
-                    <div class="cell" id="day-lo"></div>
-                    <div class="cell" id="year-hi"></div>
-                    <div class="cell" id="year-lo"></div>
+                    <div class="cell large-3" id="day-hi"></div>
+                    <div class="cell large-3" id="day-lo"></div>
+                    <div class="cell large-3" id="year-hi"></div>
+                    <div class="cell large-3" id="year-lo"></div>
                 </div>
                 <div class="grid-x">
                     <div class="cell" id="eps"></div>
@@ -46,7 +57,12 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+      integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o="
+      crossorigin="anonymous"
+    ></script>
     <script src="./assets/js/stock-details.js"></script>
 </body>
 </html>

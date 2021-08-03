@@ -17,8 +17,7 @@ const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
 function init(){
 //    let ticker = JSON.parse(localStorage.getItem("ticker"));
 //    let stockName = JSON.parse(localStorage.getItem("stockName")) - need to set item on main script as well
-//    console.log(ticker, stockName);
-//  stockReference.innerHTML = stockName + " / " + ticker;
+//    stockReference.innerHTML = stockName + " / " + ticker;
     fetch(baseStockUrl + "quote/" + "AAPL" + financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
@@ -40,11 +39,18 @@ function init(){
 };
 
 function renderData(data) {
-    console.log(data);
     stockReference.innerHTML = data.name + " / " + data.symbol;
-
-
-
+    lastPrice.innerHTML = "Last Price: " + data.price.toFixed(2);
+    fiftyAverage.innerHTML = "50 Day Avg: " + data.priceAvg50.toFixed(2);
+    twoHundredAve.innerHTML = "200 Day Avg: " + data.priceAvg200.toFixed(2);
+    priceChanges.innerHTML = "Change/Change%: " + data.change.toFixed(2) + " / " + data.changesPercentage.toFixed(2); + "%"
+    dayHi.innerHTML = "Day High: " + data.dayHigh.toFixed(2);
+    dayLo.innerHTML = "Day Low: " + data.dayLow.toFixed(2);
+    yearHi.innerHTML = "Year High: " + data.yearHigh.toFixed(2);
+    yearLo.innerHTML = "Year Low: " + data.yearLow.toFixed(2);
+    eps.innerHTML = "EPS: " + data.eps.toFixed(2);
+    peRatio.innerHTML = "P/E: " + data.pe.toFixed(2);
+    marketCap.innerHTML = "Market Cap: " + Math.trunc(data.marketCap);
 }
 
 init();
