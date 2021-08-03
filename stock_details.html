@@ -20,40 +20,44 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+    <nav>
+        <a href="./index.html">Return to Search</a>
+    </nav>
     <header id="details-header">
         <!-- Dynamically Update the H3 based on the stock being viewed -->
-        <h3 id="stock-reference">Example Stock</h3>
+        <h3 id="stock-reference"></h3>
+        <h4 id="exchange"></h4>
     </header>
     
     <div class="grid-container fluid">
-        <div class="grid-x">
+        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
             <div class="cell large-6" id="data-cell">
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell large-6" id="last-price"></div>
                     <div class="cell large-3" id="fifty-ave"></div>
                     <div class="cell large-3" id="two-hun-ave"></div>
                 </div>
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell" id="price-changes"></div>
                 </div>
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell large-3" id="day-hi"></div>
                     <div class="cell large-3" id="day-lo"></div>
                     <div class="cell large-3" id="year-hi"></div>
                     <div class="cell large-3" id="year-lo"></div>
                 </div>
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell" id="eps"></div>
                 </div>
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell" id="pe"></div>
                 </div>
-                <div class="grid-x">
+                <div class="grid-x content-box">
                     <div class="cell" id="market-cap"></div>
                 </div>
             </div>
             <div class="cell large-6" id="news-cell">
-    
+                <h3>Related News</h2>
             </div>
         </div>
     </div>

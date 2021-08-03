@@ -1,4 +1,5 @@
 const stockReference = document.querySelector("#stock-reference")
+const exchange = document.querySelector("#exchange")
 const lastPrice = document.querySelector("#last-price")
 const fiftyAverage = document.querySelector("#fifty-ave")
 const twoHundredAve = document.querySelector("#two-hun-ave")
@@ -15,7 +16,8 @@ const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
 
 function init(){
-    let ticker = JSON.parse(localStorage.getItem("ticker"));
+//    let ticker = JSON.parse(localStorage.getItem("ticker"));
+    let ticker = "MSFT";
     fetch(baseStockUrl + "quote/" + ticker + financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
@@ -38,17 +40,18 @@ function init(){
 
 function renderData(data) {
     stockReference.innerHTML = data.name + " / " + data.symbol;
-    lastPrice.innerHTML = "Last Price: " + data.price.toFixed(2);
-    fiftyAverage.innerHTML = "50 Day Avg: " + data.priceAvg50.toFixed(2);
-    twoHundredAve.innerHTML = "200 Day Avg: " + data.priceAvg200.toFixed(2);
-    priceChanges.innerHTML = "Change/Change%: " + data.change.toFixed(2) + " / " + data.changesPercentage.toFixed(2); + "%"
-    dayHi.innerHTML = "Day High: " + data.dayHigh.toFixed(2);
-    dayLo.innerHTML = "Day Low: " + data.dayLow.toFixed(2);
-    yearHi.innerHTML = "Year High: " + data.yearHigh.toFixed(2);
-    yearLo.innerHTML = "Year Low: " + data.yearLow.toFixed(2);
-    eps.innerHTML = "EPS: " + data.eps.toFixed(2);
-    peRatio.innerHTML = "P/E: " + data.pe.toFixed(2);
-    marketCap.innerHTML = "Market Cap: " + Math.trunc(data.marketCap);
+    exchange.innerHTML = data.exchange;
+    lastPrice.innerHTML = "Last Price:   " + data.price.toFixed(2);
+    fiftyAverage.innerHTML = "50 Day Avg:   " + data.priceAvg50.toFixed(2);
+    twoHundredAve.innerHTML = "200 Day Avg:   " + data.priceAvg200.toFixed(2);
+    priceChanges.innerHTML = "Change/Change%:   " + data.change.toFixed(2) + "  /  " + data.changesPercentage.toFixed(2); + "%";
+    dayHi.innerHTML = "Day High:   " + data.dayHigh.toFixed(2);
+    dayLo.innerHTML = "Day Low:   " + data.dayLow.toFixed(2);
+    yearHi.innerHTML = "Year High:   " + data.yearHigh.toFixed(2);
+    yearLo.innerHTML = "Year Low:   " + data.yearLow.toFixed(2);
+    eps.innerHTML = "EPS:   " + data.eps.toFixed(2);
+    peRatio.innerHTML = "P/E:   " + data.pe.toFixed(2);
+    marketCap.innerHTML = "Market Cap:   " + Math.trunc(data.marketCap);
 }
 
 init();
