@@ -51,7 +51,7 @@ function renderData(data) {
     yearLo.innerHTML = "Year Low:   " + data.yearLow.toFixed(2);
     eps.innerHTML = "EPS:   " + data.eps.toFixed(2);
     peRatio.innerHTML = "P/E:   " + data.pe.toFixed(2);
-    marketCap.innerHTML = "Market Cap:   " + Math.trunc(data.marketCap);
+    marketCap.innerHTML = "Market Cap:   " + (data.marketCap/1000000).toFixed(3) + " Million";
 }
 
 init();
