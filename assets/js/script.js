@@ -1,6 +1,7 @@
 let searchForm = document.querySelector("#search-form");
 let resultsTable = document.querySelector("#results-table");
 let watchList = document.querySelector("#watch-list");
+
 let watchListArray = [];
 
 
@@ -11,7 +12,6 @@ const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 function renderResults(apiData){
     apiData.forEach(element => {
-        // create table row
         let newTr = document.createElement("tr");
         newTr.setAttribute("class", "search-result");
         
@@ -48,15 +48,51 @@ function renderResults(apiData){
 
         resultsTable.appendChild(newTr);   
     });
+
     $(".add-line").on("click", "button", function(event){
     let selectedName = $(this).closest("tr").children().first().text();
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    addToYourList(selectedName,selectedSymbol)
+    addToYourList(selectedName, selectedSymbol)
     });
     $(".more-line").on("click", "button", function(event){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
     detailedInfo(selectedSymbol);
     });
+}
+
+function renderYourList() {
+    watchList.innerHTML = ""
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    
+    watchListArray.forEach(element => {
+        let tr = document.createElement("tr")
+        let tdName = document.createElement("td")
+        let tdSymbol = document.createElement("td")
+        let tdRemove = document.createElement("td")
+        tdRemove.setAttribute("class", "remove-btn")
+        let deleteBtn = document.createElement("button")
+        deleteBtn.setAttribute("class", "button warning")
+        deleteBtn.innerHTML = "REMOVE"
+        tdRemove.appendChild(deleteBtn)
+        tdName.innerHTML= element.name
+        tdSymbol.innerHTML= element.symbol
+        tr.appendChild(tdName)
+        tr.appendChild(tdSymbol)
+        tr.appendChild(tdRemove)
+        watchList.appendChild(tr)    
+    });
+
+    $(".remove-btn").on("click", "button", function(event){
+        let selectedRowSymbol = $(this).closest("tr").children().eq(1).text();
+        watchListArray = JSON.parse(localStorage.getItem("yourList"));
+        for (i=0; i<watchListArray.length; i++) {
+            if (selectedRowSymbol == watchListArray[i].symbol) {
+                watchListArray.splice(i, 1);
+                localStorage.setItem("yourList", JSON.stringify(watchListArray));
+                renderYourList()
+            }
+        }
+    })
 }
 
 var stockSearch = function(searchTerm, exchangeChoice) {
@@ -97,7 +133,14 @@ function detailedInfo(ticker) {
     document.location.replace("./stock_details.html");
 }
 
-
+function init() {
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    if (!watchListArray) {
+        watchListArray = [];
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+    }
+    renderYourList();
+}
 
 
 searchForm.addEventListener("submit", function(event) {
@@ -118,18 +161,25 @@ searchForm.addEventListener("submit", function(event) {
 
 // function to add your selection to your list.
 function addToYourList(companyName, stockSymbol){
-    // var yourListArray =[{"theCompanyName" = companyName, "theStockSymbol" = stockSymbol}];
-    let tr= document.createElement("tr")
-    let tdOne= document.createElement("td")
-    let tdTwo= document.createElement("td")
-    tdOne.innerHTML= companyName
-    tdTwo.innerHTML= stockSymbol
-    tr.appendChild(tdOne)
-    tr.appendChild(tdTwo)
-    watchList.appendChild(tr)
+    let match = false;
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    watchListArray.forEach(element => {
+        if (stockSymbol == element.symbol) {
+            alert("Already in your list!") //Need to change this to modal later!
+            match = true;
+            return;
+        } 
+    });
+    if (!match) {
+        let stockObject = {"name": companyName, "symbol": stockSymbol};
+        watchListArray.push(stockObject);
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+        renderYourList()
+    } 
 }
 
 
+init()
 
 
 
