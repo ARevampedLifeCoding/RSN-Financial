@@ -12,7 +12,6 @@ const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 function renderResults(apiData){
     apiData.forEach(element => {
-        // create table row
         let newTr = document.createElement("tr");
         newTr.setAttribute("class", "search-result");
         
@@ -49,10 +48,11 @@ function renderResults(apiData){
 
         resultsTable.appendChild(newTr);   
     });
+
     $(".add-line").on("click", "button", function(event){
     let selectedName = $(this).closest("tr").children().first().text();
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    addToYourList(selectedName,selectedSymbol)
+    addToYourList(selectedName, selectedSymbol)
     });
     $(".more-line").on("click", "button", function(event){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
@@ -63,7 +63,7 @@ function renderResults(apiData){
 function renderYourList() {
     watchList.innerHTML = ""
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
-    console.log(watchListArray)
+    
     watchListArray.forEach(element => {
         let tr = document.createElement("tr")
         let tdName = document.createElement("td")
@@ -83,14 +83,15 @@ function renderYourList() {
     });
 
     $(".remove-btn").on("click", "button", function(event){
-        let selectedRow = $(this).closest("tr").children().eq(1).text();
-        watchListArray.forEach(element => {
-            if (selectedRow == element.symbol) {
-                watchListArray.splice(element, 1);
+        let selectedRowSymbol = $(this).closest("tr").children().eq(1).text();
+        watchListArray = JSON.parse(localStorage.getItem("yourList"));
+        for (i=0; i<watchListArray.length; i++) {
+            if (selectedRowSymbol == watchListArray[i].symbol) {
+                watchListArray.splice(i, 1);
                 localStorage.setItem("yourList", JSON.stringify(watchListArray));
                 renderYourList()
             }
-        });
+        }
     })
 }
 
