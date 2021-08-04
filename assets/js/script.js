@@ -1,6 +1,7 @@
 let searchForm = document.querySelector("#search-form");
 let resultsTable = document.querySelector("#results-table");
 let watchList = document.querySelector("#watch-list");
+
 let watchListArray = [];
 
 
@@ -59,6 +60,39 @@ function renderResults(apiData){
     });
 }
 
+function renderYourList() {
+    watchList.innerHTML = ""
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    watchListArray.forEach(element => {
+        let tr = document.createElement("tr")
+        let tdName = document.createElement("td")
+        let tdSymbol = document.createElement("td")
+        let tdRemove = document.createElement("td")
+        tdRemove.setAttribute("class", "remove-btn")
+        let deleteBtn = document.createElement("button")
+        deleteBtn.setAttribute("class", "button warning")
+        deleteBtn.innerHTML = "REMOVE"
+        tdRemove.appendChild(deleteBtn)
+        tdName.innerHTML= element.name
+        tdSymbol.innerHTML= element.symbol
+        tr.appendChild(tdName)
+        tr.appendChild(tdSymbol)
+        tr.appendChild(tdRemove)
+        watchList.appendChild(tr)    
+    });
+    $(".remove-btn").on("click", "button", function(event){
+        let selectedRow = $(this).closest("tr").children().first().text();
+        console.log(selectedRow)
+        watchListArray.forEach(element => {
+            if (selectedRow == element.name) {
+                watchListArray.splice(element, 1);
+                localStorage.setItem("yourList", JSON.stringify(watchListArray));
+                renderYourList()
+            }
+        });
+    })
+}
+
 var stockSearch = function(searchTerm, exchangeChoice) {
 
     if (exchangeChoice !== "all") {
@@ -97,7 +131,14 @@ function detailedInfo(ticker) {
     document.location.replace("./stock_details.html");
 }
 
-
+function init() {
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    if (!watchListArray) {
+        watchListArray = [];
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+    }
+    renderYourList();
+}
 
 
 searchForm.addEventListener("submit", function(event) {
@@ -118,7 +159,6 @@ searchForm.addEventListener("submit", function(event) {
 
 // function to add your selection to your list.
 function addToYourList(companyName, stockSymbol){
-    // var yourListArray =[{"theCompanyName" = companyName, "theStockSymbol" = stockSymbol}];
     let tr= document.createElement("tr")
     let tdOne= document.createElement("td")
     let tdTwo= document.createElement("td")
@@ -126,10 +166,38 @@ function addToYourList(companyName, stockSymbol){
     tdTwo.innerHTML= stockSymbol
     tr.appendChild(tdOne)
     tr.appendChild(tdTwo)
+    let tdRemove = document.createElement("td")
+    tdRemove.setAttribute("class", "remove-btn")
+    let deleteBtn = document.createElement("button")
+    deleteBtn.setAttribute("class", "button warning")
+    deleteBtn.innerHTML = "REMOVE"
+    tdRemove.appendChild(deleteBtn)
+    tr.appendChild(tdRemove)
     watchList.appendChild(tr)
+
+    let stockObject = {"name": companyName, "symbol": stockSymbol};
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    watchListArray.push(stockObject);
+    console.log(watchListArray)
+    localStorage.setItem("yourList", JSON.stringify(watchListArray));
+
+    $(".remove-btn").on("click", "button", function(event){
+        let selectedRow = $(this).closest("tr").children().first().text();
+        console.log(selectedRow)
+        console.log(watchListArray)
+        watchListArray.forEach(element => {
+            if (selectedRow == element.name) {
+                console.log("match " + selectedRow + element.name)
+                watchListArray.splice(element, 1)
+                console.log(watchListArray)
+                localStorage.setItem("yourList", JSON.stringify(watchListArray));
+                renderYourList()
+            }
+        });
+    })
 }
 
-
+init()
 
 
 
