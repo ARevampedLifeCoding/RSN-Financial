@@ -63,6 +63,7 @@ function renderResults(apiData){
 function renderYourList() {
     watchList.innerHTML = ""
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    console.log(watchListArray)
     watchListArray.forEach(element => {
         let tr = document.createElement("tr")
         let tdName = document.createElement("td")
@@ -80,11 +81,11 @@ function renderYourList() {
         tr.appendChild(tdRemove)
         watchList.appendChild(tr)    
     });
+
     $(".remove-btn").on("click", "button", function(event){
-        let selectedRow = $(this).closest("tr").children().first().text();
-        console.log(selectedRow)
+        let selectedRow = $(this).closest("tr").children().eq(1).text();
         watchListArray.forEach(element => {
-            if (selectedRow == element.name) {
+            if (selectedRow == element.symbol) {
                 watchListArray.splice(element, 1);
                 localStorage.setItem("yourList", JSON.stringify(watchListArray));
                 renderYourList()
@@ -159,43 +160,23 @@ searchForm.addEventListener("submit", function(event) {
 
 // function to add your selection to your list.
 function addToYourList(companyName, stockSymbol){
-    let tr= document.createElement("tr")
-    let tdOne= document.createElement("td")
-    let tdTwo= document.createElement("td")
-    tdOne.innerHTML= companyName
-    tdTwo.innerHTML= stockSymbol
-    tr.appendChild(tdOne)
-    tr.appendChild(tdTwo)
-    let tdRemove = document.createElement("td")
-    tdRemove.setAttribute("class", "remove-btn")
-    let deleteBtn = document.createElement("button")
-    deleteBtn.setAttribute("class", "button warning")
-    deleteBtn.innerHTML = "REMOVE"
-    tdRemove.appendChild(deleteBtn)
-    tr.appendChild(tdRemove)
-    watchList.appendChild(tr)
-
-    let stockObject = {"name": companyName, "symbol": stockSymbol};
+    let match = false;
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
-    watchListArray.push(stockObject);
-    console.log(watchListArray)
-    localStorage.setItem("yourList", JSON.stringify(watchListArray));
-
-    $(".remove-btn").on("click", "button", function(event){
-        let selectedRow = $(this).closest("tr").children().first().text();
-        console.log(selectedRow)
-        console.log(watchListArray)
-        watchListArray.forEach(element => {
-            if (selectedRow == element.name) {
-                console.log("match " + selectedRow + element.name)
-                watchListArray.splice(element, 1)
-                console.log(watchListArray)
-                localStorage.setItem("yourList", JSON.stringify(watchListArray));
-                renderYourList()
-            }
-        });
-    })
+    watchListArray.forEach(element => {
+        if (stockSymbol == element.symbol) {
+            alert("Already in your list!") //Need to change this to modal later!
+            match = true;
+            return;
+        } 
+    });
+    if (!match) {
+        let stockObject = {"name": companyName, "symbol": stockSymbol};
+        watchListArray.push(stockObject);
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+        renderYourList()
+    } 
 }
+
 
 init()
 
