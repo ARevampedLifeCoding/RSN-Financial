@@ -1,9 +1,47 @@
-header {
+#homepage-header {
     text-align: center;
+}
+
+.content-box {
+    border: solid black 2px;
+    margin: 7px 3px;
+    padding: 5px;
+}
+.content-box div {
+    font-size: 1.25rem;
 }
 
 .custom-search {
     text-align: center;
+}
+
+#data-cell {
+    border: solid black 3px;
+    border-radius: 5px;
+    background-color: rgb(90, 89, 89);
+    color: white;
+}
+
+#details-header {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+#details-header h3 {
+    display: inline-block;
+    margin: 20px;
+}
+
+#details-header h4 {
+    display: inline-block;
+    margin: 20px;
+}
+
+#news-cell {
+    border: solid black 3px;
+    border-radius: 5px;
+    background-color: rgb(22, 141, 189);
 }
 
 #results-box {
@@ -19,6 +57,10 @@ header {
     background-color: rgb(22, 141, 189);
     margin: 15px;
     padding: 5px;
+}
+
+#stock-reference {
+    font-size: 3rem;
 }
 
 #your-list {

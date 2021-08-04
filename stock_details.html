@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Details</title>
+
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+    integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
+    crossorigin="anonymous"
+    />
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="./index.html">Return to Search</a>
+    </nav>
+    <header id="details-header">
+        <!-- Dynamically Update the H3 based on the stock being viewed -->
+        <h3 id="stock-reference"></h3>
+        <h4 id="exchange"></h4>
+    </header>
+    
+    <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
+            <div class="cell large-6" id="data-cell">
+                <div class="grid-x content-box">
+                    <div class="cell large-6" id="last-price"></div>
+                    <div class="cell large-3" id="fifty-ave"></div>
+                    <div class="cell large-3" id="two-hun-ave"></div>
+                </div>
+                <div class="grid-x content-box">
+                    <div class="cell" id="price-changes"></div>
+                </div>
+                <div class="grid-x content-box">
+                    <div class="cell large-3" id="day-hi"></div>
+                    <div class="cell large-3" id="day-lo"></div>
+                    <div class="cell large-3" id="year-hi"></div>
+                    <div class="cell large-3" id="year-lo"></div>
+                </div>
+                <div class="grid-x content-box">
+                    <div class="cell" id="eps"></div>
+                </div>
+                <div class="grid-x content-box">
+                    <div class="cell" id="pe"></div>
+                </div>
+                <div class="grid-x content-box">
+                    <div class="cell" id="market-cap"></div>
+                </div>
+            </div>
+            <div class="cell large-6" id="news-cell">
+                <h3>Related News</h2>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+      integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/js/stock-details.js"></script>
+</body>
+</html>
