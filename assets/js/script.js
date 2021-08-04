@@ -128,22 +128,8 @@ function addToYourList(companyName, stockSymbol){
     tr.appendChild(tdTwo)
     watchList.appendChild(tr)
 }
-//when I click add it should add the information to my list.
 
-//Then store the data
-// var = addToYourList 
 
-// watchList.addEventListener("ADD", function(event) {
-//     event.preventDefault();
-// let addToYourList = document.querySelector("#add-btn").value
-// let yourList = document.querySelector("#your-list").value
-// if (addToYourList){
-// //you click the add button 
-// //add data to Your List 
-// }
-// })
-
-//create a function that allows results to be added t
 
 
 
