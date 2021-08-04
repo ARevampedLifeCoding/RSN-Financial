@@ -53,9 +53,9 @@ function renderResults(apiData){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
     // call function - printToList(selectedName, selectedSymbol) - verify function name once created.
     });
-    $(".add-line").on("click", "button", function(event){
+    $(".more-line").on("click", "button", function(event){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    // call function - detailedInfo(selectedSymbol);
+    detailedInfo(selectedSymbol);
     });
 }
 
@@ -94,7 +94,7 @@ var stockSearch = function(searchTerm, exchangeChoice) {
 
 function detailedInfo(ticker) {
     localStorage.setItem("ticker", ticker);
-    document.location.replace("../stock-details.html");
+    document.location.replace("./stock_details.html");
 }
 
 
