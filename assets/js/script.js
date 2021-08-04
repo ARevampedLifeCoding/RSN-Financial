@@ -51,7 +51,7 @@ function renderResults(apiData){
     $(".add-line").on("click", "button", function(event){
     let selectedName = $(this).closest("tr").children().first().text();
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    // call function - printToList(selectedName, selectedSymbol) - verify function name once created.
+    addToYourList(selectedName,selectedSymbol)
     });
     $(".add-line").on("click", "button", function(event){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
@@ -116,12 +116,34 @@ searchForm.addEventListener("submit", function(event) {
 })
 
 
+// function to add your selection to your list.
+function addToYourList(companyName, stockSymbol){
+    // var yourListArray =[{"theCompanyName" = companyName, "theStockSymbol" = stockSymbol}];
+    let tr= document.createElement("tr")
+    let tdOne= document.createElement("td")
+    let tdTwo= document.createElement("td")
+    tdOne.innerHTML= companyName
+    tdTwo.innerHTML= stockSymbol
+    tr.appendChild(tdOne)
+    tr.appendChild(tdTwo)
+    watchList.appendChild(tr)
+}
+//when I click add it should add the information to my list.
 
+//Then store the data
+// var = addToYourList 
 
+// watchList.addEventListener("ADD", function(event) {
+//     event.preventDefault();
+// let addToYourList = document.querySelector("#add-btn").value
+// let yourList = document.querySelector("#your-list").value
+// if (addToYourList){
+// //you click the add button 
+// //add data to Your List 
+// }
+// })
 
-
-
-
+//create a function that allows results to be added t
 
 
 
