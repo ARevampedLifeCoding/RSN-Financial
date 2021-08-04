@@ -92,6 +92,11 @@ var stockSearch = function(searchTerm, exchangeChoice) {
     } 
 };
 
+function detailedInfo(ticker) {
+    localStorage.setItem("ticker", ticker);
+    document.location.replace("../stock-details.html");
+}
+
 
 
 
