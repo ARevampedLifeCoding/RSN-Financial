@@ -51,7 +51,7 @@ function renderResults(apiData){
     $(".add-line").on("click", "button", function(event){
     let selectedName = $(this).closest("tr").children().first().text();
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
-    // call function - printToList(selectedName, selectedSymbol) - verify function name once created.
+    addToYourList(selectedName,selectedSymbol)
     });
     $(".more-line").on("click", "button", function(event){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
@@ -116,10 +116,18 @@ searchForm.addEventListener("submit", function(event) {
 })
 
 
-
-
-
-
+// function to add your selection to your list.
+function addToYourList(companyName, stockSymbol){
+    // var yourListArray =[{"theCompanyName" = companyName, "theStockSymbol" = stockSymbol}];
+    let tr= document.createElement("tr")
+    let tdOne= document.createElement("td")
+    let tdTwo= document.createElement("td")
+    tdOne.innerHTML= companyName
+    tdTwo.innerHTML= stockSymbol
+    tr.appendChild(tdOne)
+    tr.appendChild(tdTwo)
+    watchList.appendChild(tr)
+}
 
 
 
