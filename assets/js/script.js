@@ -14,6 +14,14 @@ const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 function renderResults(matchingResults){
     resultsTable.innerHTML= ""
+    if (matchingResults) {
+        document.querySelector("#clear-space").innerHTML = ""
+        let clearBtn = document.createElement("button")
+        clearBtn.setAttribute("class", "button warning")
+        clearBtn.setAttribute("id", "clear-results")
+        clearBtn.innerText = "Clear Results"
+        document.querySelector("#clear-space").appendChild(clearBtn)
+    }
     matchingResults.forEach(element => {
         let newTr = document.createElement("tr");
         newTr.setAttribute("class", "search-result");
@@ -61,6 +69,12 @@ function renderResults(matchingResults){
     let selectedSymbol = $(this).closest("tr").children().eq(1).text();
     detailedInfo(selectedSymbol);
     });
+    $("#clear-space").on("click", function(){
+        document.querySelector("#clear-space").innerHTML = ""
+        searchResults = [];
+        sessionStorage.setItem("searchResults", JSON.stringify(searchResults))
+        renderResults(searchResults);
+    }) 
 }
 
 function renderYourList() {
@@ -155,6 +169,7 @@ function detailedInfo(ticker) {
     document.location.replace("./stock_details.html");
 }
 
+
 function init() {
     searchResults = JSON.parse(sessionStorage.getItem("searchResults"));
     if (searchResults) {
@@ -183,3 +198,4 @@ searchForm.addEventListener("submit", function(event) {
 })
 
 init()
+
