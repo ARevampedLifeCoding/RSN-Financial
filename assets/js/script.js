@@ -5,15 +5,16 @@ const watchList = document.querySelector("#watch-list");
 $(document).foundation();
 
 let watchListArray = [];
-
+let searchResults = [];
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 
 
-function renderResults(apiData){
-    apiData.forEach(element => {
+function renderResults(matchingResults){
+    resultsTable.innerHTML= ""
+    matchingResults.forEach(element => {
         let newTr = document.createElement("tr");
         newTr.setAttribute("class", "search-result");
         
@@ -97,13 +98,13 @@ function renderYourList() {
     })
 }
 
-var stockSearch = function(searchTerm, exchangeChoice) {
-
+function stockSearch(searchTerm, exchangeChoice) {
     if (exchangeChoice !== "all") {
         fetch(baseStockUrl + "search?query=" + searchTerm + "&limit=10&exchange=" + exchangeChoice + financialModelAPIKey)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function (data) {
+                    sessionStorage.setItem("searchResults", JSON.stringify(data))
                     renderResults(data);
                 });
             } else {
@@ -118,6 +119,7 @@ var stockSearch = function(searchTerm, exchangeChoice) {
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function (data) {
+                sessionStorage.setItem("searchResults", JSON.stringify(data))
                 renderResults(data);
                 });
             } else {
@@ -130,37 +132,6 @@ var stockSearch = function(searchTerm, exchangeChoice) {
     } 
 };
 
-function detailedInfo(ticker) {
-    localStorage.setItem("ticker", ticker);
-    document.location.replace("./stock_details.html");
-}
-
-function init() {
-    watchListArray = JSON.parse(localStorage.getItem("yourList"));
-    if (!watchListArray) {
-        watchListArray = [];
-        localStorage.setItem("yourList", JSON.stringify(watchListArray));
-    }
-    renderYourList();
-}
-
-
-searchForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    resultsTable.innerHTML= ""
-    let searchText = document.querySelector("#search-text").value
-    let exchangeSelect = document.querySelector("#exchange-select").value
-
-    if (searchText) {
-        stockSearch(searchText, exchangeSelect);
-    }
-    else {
-        $("#blank-search").foundation("open")
-    }  
-})
-
-
-// function to add your selection to your list.
 function addToYourList(companyName, stockSymbol){
     let match = false;
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
@@ -179,9 +150,36 @@ function addToYourList(companyName, stockSymbol){
     } 
 }
 
+function detailedInfo(ticker) {
+    localStorage.setItem("ticker", ticker);
+    document.location.replace("./stock_details.html");
+}
+
+function init() {
+    searchResults = JSON.parse(sessionStorage.getItem("searchResults"));
+    if (searchResults) {
+        renderResults(searchResults)
+    }
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    if (!watchListArray) {
+        watchListArray = [];
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+    }
+    renderYourList();
+}
+
+
+searchForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let searchText = document.querySelector("#search-text").value
+    let exchangeSelect = document.querySelector("#exchange-select").value
+
+    if (searchText) {
+        stockSearch(searchText, exchangeSelect);
+    }
+    else {
+        $("#blank-search").foundation("open")
+    }  
+})
 
 init()
-
-
-
-
