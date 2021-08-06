@@ -1,5 +1,5 @@
 body {
-    background: url("../img/financial_BG.jpg") no-repeat center;
+    background: url("../img/financial_BG.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -82,8 +82,13 @@ body {
     padding: 5px;
 }
 
-#reults-title {
+#results-title {
     justify-content: space-between;
+}
+
+#return-home {
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 #search-box {

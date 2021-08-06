@@ -119,4 +119,8 @@ function applyNewCurrency(){
     yearLo.innerHTML = "Year Low:   " + (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
+document.querySelector("#return-home").addEventListener("click", function(event){
+    document.location.replace("./index.html");
+})
+
 init();
