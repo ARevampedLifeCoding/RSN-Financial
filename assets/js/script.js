@@ -1,6 +1,8 @@
-let searchForm = document.querySelector("#search-form");
-let resultsTable = document.querySelector("#results-table");
-let watchList = document.querySelector("#watch-list");
+const searchForm = document.querySelector("#search-form");
+const resultsTable = document.querySelector("#results-table");
+const watchList = document.querySelector("#watch-list");
+
+$(document).foundation();
 
 let watchListArray = [];
 
@@ -153,8 +155,7 @@ searchForm.addEventListener("submit", function(event) {
         stockSearch(searchText, exchangeSelect);
     }
     else {
-        //need to replace this alert later with a modal
-        alert("You must enter something into the company/ticker field.")
+        $("#blank-search").foundation("open")
     }  
 })
 
@@ -165,7 +166,7 @@ function addToYourList(companyName, stockSymbol){
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
     watchListArray.forEach(element => {
         if (stockSymbol == element.symbol) {
-            alert("Already in your list!") //Need to change this to modal later!
+            $("#already-exists").foundation('open');
             match = true;
             return;
         } 
