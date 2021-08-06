@@ -1,3 +1,8 @@
+body {
+    background: url("../img/financial_BG.jpg") no-repeat center;
+    background-size: cover;
+}
+
 .content-box {
     border: solid black 2px;
     margin: 7px 3px;
@@ -7,8 +12,21 @@
     font-size: 1.25rem;
 }
 
+.custom-button {
+    border-radius: 3px;
+    margin-bottom: 0px;
+}
+
 .custom-search {
     text-align: center;
+}
+
+.remove-btn {
+    text-align: center;
+}
+
+.section-header h3 {
+    color: white;
 }
 
 #clear-space {
@@ -31,15 +49,23 @@
 #details-header h3 {
     display: inline-block;
     margin: 20px;
+    color: white;
 }
 
 #details-header h4 {
     display: inline-block;
     margin: 20px;
+    color: white;
+}
+
+#exchange-rate {
+    color: white;
 }
 
 #homepage-header {
     text-align: center;
+    text-shadow: 2px 2px gray;
+    color: white;
 }
 
 #news-cell {
@@ -50,6 +76,7 @@
 
 #results-box {
     border: solid black 2px;
+    background:rgba(90, 89, 89, 0.568);
     border-radius: 8px;
     margin: 15px;
     padding: 5px;
@@ -62,10 +89,15 @@
 #search-box {
     border: solid rgb(1, 1, 56) 2px;
     border-radius: 8px;
-    background-color: rgb(22, 141, 189);
+    background-color: rgba(16, 61, 78, 0.753);
     margin: 15px;
     padding: 5px;
-    height: 280px;
+    height: 300px;
+}
+
+#search-form label {
+    color: white;
+    font-size: 1.2rem;
 }
 
 #stock-reference {

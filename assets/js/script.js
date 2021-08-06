@@ -17,7 +17,7 @@ function renderResults(matchingResults){
     if (matchingResults) {
         document.querySelector("#clear-space").innerHTML = ""
         let clearBtn = document.createElement("button")
-        clearBtn.setAttribute("class", "button warning")
+        clearBtn.setAttribute("class", "button warning custom-button")
         clearBtn.setAttribute("id", "clear-results")
         clearBtn.innerText = "Clear Results"
         document.querySelector("#clear-space").appendChild(clearBtn)
@@ -42,7 +42,7 @@ function renderResults(matchingResults){
         let tdAdd = document.createElement("td");
         tdAdd.setAttribute("class", "add-line");
         let addBtn = document.createElement("button");
-        addBtn.setAttribute("class", "button primary");
+        addBtn.setAttribute("class", "button primary custom-button");
         addBtn.setAttribute("id", "add-btn");
         addBtn.innerHTML = "ADD";
         tdAdd.appendChild(addBtn);
@@ -51,7 +51,7 @@ function renderResults(matchingResults){
         let tdMore = document.createElement("td");
         tdMore.setAttribute("class", "more-line");
         let moreBtn = document.createElement("button");
-        moreBtn.setAttribute("class", "button secondary");
+        moreBtn.setAttribute("class", "button secondary custom-button");
         moreBtn.setAttribute("id", "more-btn");
         moreBtn.innerHTML = "More Info";
         tdMore.appendChild(moreBtn);
@@ -88,7 +88,7 @@ function renderYourList() {
         let tdRemove = document.createElement("td")
         tdRemove.setAttribute("class", "remove-btn")
         let deleteBtn = document.createElement("button")
-        deleteBtn.setAttribute("class", "button warning")
+        deleteBtn.setAttribute("class", "button alert custom-button")
         deleteBtn.innerHTML = "REMOVE"
         tdRemove.appendChild(deleteBtn)
         tdName.innerHTML= element.name
