@@ -152,6 +152,9 @@ function addToYourList(companyName, stockSymbol){
     watchListArray.forEach(element => {
         if (stockSymbol == element.symbol) {
             $("#already-exists").foundation('open');
+            $('#already-exists').on("click", "button", function(event) {
+                document.location = "./index.html"
+            })
             match = true;
             return;
         } 
@@ -194,6 +197,9 @@ searchForm.addEventListener("submit", function(event) {
     }
     else {
         $("#blank-search").foundation("open")
+        $("#blank-search").on("click", "button", function(event){
+            document.location = "./index.html"
+        })
     }  
 })
 
