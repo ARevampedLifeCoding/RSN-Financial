@@ -26,22 +26,25 @@
       <h1>RSN Stock Selector</h1>
       <h2>A simple tool for finding stock symbols and conducting research.</h2>
     </header>
-
+      <div class="grid-contanier fluid">
     <div class="grid-x" id="research-section">
       <div class="cell medium-8 medium-order-1 small-order-2" id="results-box">
         <h3>Matching Results</h3>
-        <table class="striped" id="results-table">
+        <table class="striped" id="results-display">
           <thead>
             <tr>
-              <th width="200">Company Name</th>
-              <th width="150">Ticker/Symbol</th>
-              <th width="150">Currency</th>
-              <th width="150">Exchange</th>
-              <th width="75"></th>
-              <th width="75"></th>
+              <th>Company Name</th>
+              <th>Ticker/Symbol</th>
+              <th>Currency</th>
+              <th>Exchange</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
-          <!-- Append the search results here-->
+          <tbody id="results-table">
+            <!-- Append the search results here-->
+          </tbody>
+          
         </table>
       </div>
       <div
@@ -88,7 +91,7 @@
         </form>
       </div>
     </div>
-
+  </div>
     <div class="grid-x">
       <div class="cell auto" id="your-list">
         <h3>Your List</h3>

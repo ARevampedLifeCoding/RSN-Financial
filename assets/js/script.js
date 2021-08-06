@@ -145,7 +145,7 @@ function init() {
 
 searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    // Need to clear the previous TR's that were added by search
+    resultsTable.innerHTML= ""
     let searchText = document.querySelector("#search-text").value
     let exchangeSelect = document.querySelector("#exchange-select").value
 
