@@ -11,9 +11,13 @@ const yearLo = document.querySelector("#year-lo")
 const eps = document.querySelector("#eps")
 const peRatio = document.querySelector("#pe")
 const marketCap = document.querySelector("#market-cap")
+const prefCurrency = document.querySelector("#currency");
+const exchangeRate = document.querySelector("#exchange-rate");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
+var currency;
+
 
 function init(){
     let ticker = localStorage.getItem("ticker");
@@ -52,5 +56,40 @@ function renderData(data) {
     peRatio.innerHTML = "P/E:   " + data.pe.toFixed(2);
     marketCap.innerHTML = "Market Cap:   " + (data.marketCap/1000000).toFixed(3) + " Million";
 }
+
+
+
+prefCurrency.addEventListener('change', function(){
+    console.log (prefCurrency.value);
+    currency = prefCurrency.value;
+
+    fetch("http://api.exchangeratesapi.io/v1/latest?access_key=93316d725ce60b2d7c05753bfda8175e&cbase=USD")
+
+    .then(function(response){
+    console.log(response);
+    return response.json();
+    })
+
+    .then(function(data){
+    console.log(data);
+    
+    switch (currency) {
+        case 'CAD':
+            exchangeRate.textContent = data.rates.CAD; 
+            break;
+
+        case 'USD':
+            exchangeRate.textContent = data.rates.USD; 
+            break;
+        
+        case 'JPY': 
+            exchangeRate.textContent = data.rates.JPY; 
+            break;   
+        case 'EUR':
+            exchangeRate.textContent = data.rates.EUR; 
+    }
+    
+    })
+})
 
 init();

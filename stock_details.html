@@ -24,12 +24,26 @@
         <a href="./index.html">Return to Search</a>
     </nav>
     <header id="details-header">
+        
         <!-- Dynamically Update the H3 based on the stock being viewed -->
         <h3 id="stock-reference"></h3>
         <h4 id="exchange"></h4>
+        <label for="currency">Choose a currency:</label>
+
+        
     </header>
     
     <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
+            <select name="currency" id="currency">
+                <option value="USD">US Dollar</option>
+                <option value="EUR">Euro</option>
+                <option value="JPY">Japanese Yen</option>
+                <option value="CAD">Canadian Dollar</option>
+                </select>
+                <!-- dynamically update h2 with exchange rate vs USD -->
+                <h6 id="exchange-rate">Exchange rate goes here</h2>
+        </div>
         <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
             <div class="cell large-6" id="data-cell">
                 <div class="grid-x content-box">
