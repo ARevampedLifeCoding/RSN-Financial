@@ -16,8 +16,13 @@ const exchangeRate = document.querySelector("#exchange-rate");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
-var currency;
 
+const baseExchangeUrl = "https://api.exchangeratesapi.io/v1/latest?";
+const exchangeAPIKey ="93316d725ce60b2d7c05753bfda8175e";
+
+var currency;
+var currencyMultiplier;
+var finData;
 
 function init(){
     let ticker = localStorage.getItem("ticker");
@@ -42,6 +47,7 @@ function init(){
 };
 
 function renderData(data) {
+    finData = data;
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML = "Last Price:   " + data.price.toFixed(2);
@@ -66,36 +72,51 @@ function renderData(data) {
 
 
 prefCurrency.addEventListener('change', function(){
-    console.log (prefCurrency.value);
+    // console.log (prefCurrency.value);
     currency = prefCurrency.value;
-
-    fetch("http://api.exchangeratesapi.io/v1/latest?access_key=93316d725ce60b2d7c05753bfda8175e&cbase=USD")
-
-    .then(function(response){
-    console.log(response);
-    return response.json();
+    var exchangeQueryUrl = baseExchangeUrl+'access_key='+exchangeAPIKey+'&base=USD';
+    // console.log(exchangeQueryUrl);
+    //fetch("http://api.exchangeratesapi.io/v1/latest?access_key=93316d725ce60b2d7c05753bfda8175e&base=USD")
+    fetch(exchangeQueryUrl)
+    .then(function(ExchangeResponse){
+    console.log(ExchangeResponse);
+    return ExchangeResponse.json();
     })
 
-    .then(function(data){
-    console.log(data);
+    .then(function(ExchangeData){
+    console.log(ExchangeData);
     
     switch (currency) {
         case 'CAD':
-            exchangeRate.textContent = data.rates.CAD; 
+            currencyMultiplier = ExchangeData.rates.CAD;
             break;
 
         case 'USD':
-            exchangeRate.textContent = data.rates.USD; 
+            
+            currencyMultiplier = ExchangeData.rates.USD
             break;
         
         case 'JPY': 
-            exchangeRate.textContent = data.rates.JPY; 
+            currencyMultiplier = ExchangeData.rates.JPY
+            
             break;   
         case 'EUR':
-            exchangeRate.textContent = data.rates.EUR; 
+            currencyMultiplier = ExchangeData.rates.EUR;
+            
     }
-    
+    exchangeRate.textContent = "1 USD = " + currencyMultiplier +" " +currency;  
+    applyNewCurrency(); //updates the Stock info in the grid with chosen currency
     })
 })
+
+function applyNewCurrency(){
+    lastPrice.textContent = "Last Price:   " + (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
+    fiftyAverage.innerHTML = "50 Day Avg:   " + (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
+    twoHundredAve.innerHTML = "200 Day Avg:   " + (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
+    dayHi.innerHTML = "Day High:   " + (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    dayLo.innerHTML = "Day Low:   " + (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    yearHi.innerHTML = "Year High:   " + (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    yearLo.innerHTML = "Year Low:   " + (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+}
 
 init();

@@ -28,14 +28,15 @@
         <!-- Dynamically Update the H3 based on the stock being viewed -->
         <h3 id="stock-reference"></h3>
         <h4 id="exchange"></h4>
-        <label for="currency">Choose a currency:</label>
+        <!-- <label for="currency">Choose a currency:</label> -->
 
         
     </header>
     
     <div class="grid-container fluid">
         <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
-            <select name="currency" id="currency">
+            <div class ="cell large-3">
+                <select name="currency" id="currency">
                 <option value="USD">US Dollar</option>
                 <option value="EUR">Euro</option>
                 <option value="JPY">Japanese Yen</option>
@@ -43,9 +44,10 @@
                 </select>
                 <!-- dynamically update h2 with exchange rate vs USD -->
                 <h6 id="exchange-rate">Exchange rate goes here</h2>
+            </div>
         </div>
         <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
-            <div class="cell large-6" id="data-cell">
+            <div class="cell large-9" id="data-cell">
                 <div class="grid-x content-box">
                     <div class="cell large-6" id="last-price"></div>
                     <div class="cell large-3" id="fifty-ave"></div>
@@ -70,7 +72,7 @@
                     <div class="cell" id="market-cap"></div>
                 </div>
             </div>
-            <div class="cell large-6" id="news-cell">
+            <div class="cell large-3" id="news-cell">
                 <h3>Related News</h2>
             </div>
         </div>
