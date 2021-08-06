@@ -1,37 +1,31 @@
-## Welcome to GitHub Pages
+# RSN Stock Selector
 
-You can use the [editor on GitHub](https://github.com/ARevampedLifeCoding/project-1/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+We have built a stock selector that will allow you to chose a stock with the most up to date stock information. We also allow you to change the currency to the currency of your preference.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Functionality
 
-### Markdown
+Use our stock search tool to search trough all the available stocks. Then you will have the option to add the stock to your list or you can look at more. This is where you would change the currency to your preference.
+<img src="./assets/img/rsn-1.png">
+<img src="./assets/img/rsn-2.png">
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Link to live Deployment
 
-```markdown
-Syntax highlighted code block
+- https://arevampedlifecoding.github.io/project-1/
 
-# Header 1
-## Header 2
-### Header 3
+### Our CSS Frame work
 
-- Bulleted
-- List
+- https://get.foundation/sics-v5/css.html
 
-1. Numbered
-2. List
+### Our API'S
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ARevampedLifeCoding/project-1/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+- https://financialmodelingprep.com/developer/docs
+  <br>
+- https://exchangeratesapi.io/
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Nate Irvin at notAnEmail@notAnEmail.com
+<br>
+Satish Iyer at notAnEmail@notAnEmail.com
+<br>
+Randy Langston at notAnEMail@notAnEmail.com
