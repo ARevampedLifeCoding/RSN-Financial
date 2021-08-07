@@ -33,9 +33,11 @@ function renderResults(matchingResults){
         tdSymbol.textContent = element.symbol;
         newTr.appendChild(tdSymbol);
         let tdCurrency = document.createElement("td");
+        tdCurrency.setAttribute("class", "small-delete");
         tdCurrency.textContent = element.currency;
         newTr.appendChild(tdCurrency);
         let tdExchange = document.createElement("td");
+        tdExchange.setAttribute("class", "small-delete");
         tdExchange.textContent = element.exchangeShortName;
         newTr.appendChild(tdExchange);
 
@@ -202,6 +204,21 @@ searchForm.addEventListener("submit", function(event) {
         })
     }  
 })
+
+$(window).on("resize", function() {
+    if($(window).width() <= 960) {
+        $("#results-box").removeClass("shrink medium-8 medium-order-1");
+        $("#results-box").addClass("medium-12 medium-order-2");
+        $("#search-box").removeClass("auto medium-order-2");
+        $("#search-box").addClass("medium-order-1");
+    } else {
+        $("#results-box").addClass("shrink medium-8 medium-order-1");
+        $("#results-box").removeClass("medium-12 medium-order-2");
+        $("#search-box").addClass("auto medium-order-2");
+        $("#search-box").removeClass("medium-order-1");
+    }
+})
+
 
 init()
 
