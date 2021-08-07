@@ -46,127 +46,140 @@
                 <h6 id="exchange-rate">Exchange rate goes here</h2>
             </div>
         </div>
-        <!-- <div class="grid-x grid-margin-x grid-padding-x grid-padding-y">
-            <div class="cell large-9" id="data-cell">
-                <div class="grid-x content-box">
-                    <div class="cell large-6" id="last-price"></div>
-                    <div class="cell large-3" id="fifty-ave"></div>
-                    <div class="cell large-3" id="two-hun-ave"></div>
-                </div>
-                <div class="grid-x content-box">
-                    <div class="cell" id="price-changes"></div>
-                </div>
-                <div class="grid-x content-box">
-                    <div class="cell large-3" id="day-hi"></div>
-                    <div class="cell large-3" id="day-lo"></div>
-                    <div class="cell large-3" id="year-hi"></div>
-                    <div class="cell large-3" id="year-lo"></div>
-                </div>
-                <div class="grid-x content-box">
-                    <div class="cell" id="eps"></div>
-                </div>
-                <div class="grid-x content-box">
-                    <div class="cell" id="pe"></div>
-                </div>
-                <div class="grid-x content-box">
-                    <div class="cell" id="market-cap"></div>
-                </div>
-            </div>
-            <div class="cell large-3" id="news-cell">
-                <h3>Related News</h2>
-            </div>
-        </div> -->
 
         <!-- Using Cards -->
         <div class="grid-x grid-margin-x">
             <div class="cell large-9">
                <div class ="grid-x grid-margin-x"> 
-                <div class="cell large-3">
-                    <div class="card">
-                    <div class ="card-divider">
-                        Price Details
+                    <div class="cell large-3">
+                        <div class="card">
+                            <div class ="card-divider">
+                                Price Details
+                            </div>
+                            <div class="card-section">
+                                <ul>
+                                    <li>Last Price: <span id="last-price"></span></li>
+                                    <li>Price Change: <span id="price-changes"> </span ></li>
+                                    <li>Percent Change: <span id="percent-changes"> </span ></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-section">
-                    <!-- <h4><span id="date1"></span></h4>
-                    <img id="icon1" > -->
-                        <ul>
-                            <li>Last Price: <span id="last-price"></span></li>
-                            <li>Price Change: <span id="price-changes"> </span ></li>
-                            <li>Percent Change: <span id="percent-changes"> </span ></li>
-                        </ul>
-                    </div>
-                    </div>
-                </div>
             
-                <div class="cell large-3">
-                    <div class="card">
-                        <div class ="card-divider">
-                            Day Highs/Lows
+                    <div class="cell large-3">
+                        <div class="card">
+                            <div class ="card-divider custom-divider">
+                                Daily
+                            </div>
+                            <div class="card-section">
+                                <!-- <ul>
+                                    <li> <span id="day-hi"></span></li>
+                                    <li> <span id="day-lo"> </span ></li>
+                                    
+                                </ul> -->
+                                <table class="unstriped hover">
+                                    <tr>
+                                        <td>High:</td>
+                                        <td><span id="day-hi"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Low:</td>
+                                        <td><span id="day-lo"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    <div class="card-section">
-                    <!-- <h4><span id="date1"></span></h4>
-                    <img id="icon1" > -->
-                        <ul>
-                            <li> <span id="day-hi"></span></li>
-                            <li> <span id="day-lo"> </span ></li>
-                            
-                        </ul>
                     </div>
-                    </div>
-                </div>
                 
-                <div class="cell large-3">
-                    <div class="card">
-                        <div class ="card-divider">
-                            Year Highs/Lows
+                    <div class="cell large-3">
+                        <div class="card">
+                            <div class ="card-divider custom-divider">
+                                Yearly
+                            </div>
+                            <div class="card-section">
+                                <!-- <ul>
+                                    <li> <span id="year-hi"></span></li>
+                                    <li> <span id="year-lo"> </span ></li>
+                                    
+                                </ul> -->
+                                <table class="unstriped hover">
+                                    <tr>
+                                        <td>High:</td>
+                                        <td><span id="year-hi"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Low:</td>
+                                        <td><span id="year-lo"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    <div class="card-section">
-                    <!-- <h4><span id="date1"></span></h4>
-                    <img id="icon1" > -->
-                        <ul>
-                            <li> <span id="year-hi"></span></li>
-                            <li> <span id="year-lo"> </span ></li>
-                            
-                        </ul>
                     </div>
-                    </div>
-                </div>
 
-                <div class="cell large-3">
-                    <div class="card">
-                        <div class ="card-divider">
-                            Key Historical Averages 
+                    <div class="cell large-3">
+                        <div class="card">
+                            <div class ="card-divider custom-divider">
+                                Key Historical Averages 
+                            </div>
+                            <div class="card-section">
+                                <!-- <ul>
+                                    <li> <span id="fifty-ave"></span></li>
+                                    <li> <span id="two-hun-ave"> </span ></li>
+                                    
+                                </ul> -->
+                                <table class="unstriped hover">
+                                    <tr>
+                                        <td>50 Day Average:</td>
+                                        <td><span id="fifty-ave"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>200 Day Average:</td>
+                                        <td><span id="two-hun-ave"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    <div class="card-section">
-                    <!-- <h4><span id="date1"></span></h4>
-                    <img id="icon1" > -->
-                        <ul>
-                            <li> <span id="fifty-ave"></span></li>
-                            <li> <span id="two-hun-ave"> </span ></li>
-                            
-                        </ul>
                     </div>
-                    </div>
-                </div>
                 
-                <div class="cell large-3">
-                    <div class="card">
-                        <div class ="card-divider">
-                            Key Metrics
+                    <div class="cell large-3">
+                        <div class="card">
+                            <div class ="card-divider">
+                                Key Metrics
+                            </div>
+                            <div class="card-section">
+                                <ul>
+                                    <li> <span id="eps"></span></li>
+                                    <li> <span id="pe"> </span ></li>
+                                    
+                                </ul>
+                            </div>
                         </div>
-                    <div class="card-section">
-                    <!-- <h4><span id="date1"></span></h4>
-                    <img id="icon1" > -->
-                        <ul>
-                            <li> <span id="eps"></span></li>
-                            <li> <span id="pe"> </span ></li>
-                            
-                        </ul>
                     </div>
+
+                </div>
+                <div class="grid-x">
+                    <div class="cell large-6" id="grades-card">
+                        <div class="card">
+                            <div class ="card-divider">
+                                Grades
+                            </div>
+                            <div class="card-section">
+                                <table>
+                                    <thead>
+                                        <td>Grading Company</td>
+                                        <td>Date Changed</td>
+                                        <td>Previous</td>
+                                        <td>New</td>
+                                    </thead>
+                                    <tbody id="grade-data">
+                                    <!-- Append the grades here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
             <div class="cell large-3" id="news-cell">
                 <h3>Related News</h2>

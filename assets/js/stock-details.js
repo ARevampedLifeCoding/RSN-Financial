@@ -15,6 +15,7 @@ const peRatio = document.querySelector("#pe")
 const marketCap = document.querySelector("#market-cap")
 const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
+const stockGrades = document.querySelector("#grade-data");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
@@ -35,6 +36,7 @@ function init(){
                 if (data) {
                     renderData(data[0]);
                     getRecentNews(ticker);
+                    getStockGrades(ticker);
                 }
                 else {
                     console.log("invalid data returned");
@@ -54,14 +56,14 @@ function renderData(data) {
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML =  data.price.toFixed(2);
-    fiftyAverage.innerHTML = "50 Day Avg:   " + data.priceAvg50.toFixed(2);
-    twoHundredAve.innerHTML = "200 Day Avg:   " + data.priceAvg200.toFixed(2);
+    fiftyAverage.innerHTML = data.priceAvg50.toFixed(2);
+    twoHundredAve.innerHTML = data.priceAvg200.toFixed(2);
     priceChanges.innerHTML =  data.change.toFixed(2); 
     percentChanges.innerHTML = data.changesPercentage.toFixed(2);
-    dayHi.innerHTML = "Day High:   " + data.dayHigh.toFixed(2);
-    dayLo.innerHTML = "Day Low:   " + data.dayLow.toFixed(2);
-    yearHi.innerHTML = "Year High:   " + data.yearHigh.toFixed(2);
-    yearLo.innerHTML = "Year Low:   " + data.yearLow.toFixed(2);
+    dayHi.innerHTML = data.dayHigh.toFixed(2);
+    dayLo.innerHTML = data.dayLow.toFixed(2);
+    yearHi.innerHTML = data.yearHigh.toFixed(2);
+    yearLo.innerHTML = data.yearLow.toFixed(2);
     if (data.eps) {
         eps.innerHTML = "EPS:   " + data.eps.toFixed(2);
     }
@@ -73,7 +75,25 @@ function renderData(data) {
     }
 }
 
-
+function renderGrades(grades) {
+    grades.forEach(element => {
+        console.log(stockGrades)
+        let tRow = document.createElement("tr")
+        stockGrades.appendChild(tRow)
+        let tdName = document.createElement("td")
+        tdName.innerHTML = element.gradingCompany
+        tRow.appendChild(tdName)
+        let tdDate = document.createElement("td")
+        tdDate.innerHTML = element.date
+        tRow.appendChild(tdDate)
+        let tdPrevious = document.createElement("td")
+        tdPrevious.innerHTML = element.previousGrade
+        tRow.appendChild(tdPrevious)
+        let tdNew = document.createElement("td")
+        tdNew.innerHTML = element.newGrade
+        tRow.appendChild(tdNew)
+    });
+}
 
 prefCurrency.addEventListener('change', function(){
     // console.log (prefCurrency.value);
@@ -114,13 +134,13 @@ prefCurrency.addEventListener('change', function(){
 })
 
 function applyNewCurrency(){
-    lastPrice.textContent = "Last Price:   " + (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
-    fiftyAverage.innerHTML = "50 Day Avg:   " + (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
-    twoHundredAve.innerHTML = "200 Day Avg:   " + (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
-    dayHi.innerHTML = "Day High:   " + (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    dayLo.innerHTML = "Day Low:   " + (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    yearHi.innerHTML = "Year High:   " + (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    yearLo.innerHTML = "Year Low:   " + (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
+    twoHundredAve.innerHTML = (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
+    dayHi.innerHTML = (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    dayLo.innerHTML = (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
 function getRecentNews(stockTicker) {
@@ -130,7 +150,7 @@ function getRecentNews(stockTicker) {
     var br =[];
     var a =[];
 
-    fetch(baseStockUrl+"stock_news?tickers="+stockTicker+  "&limit=5&" +financialModelAPIKey)
+    fetch(baseStockUrl+"stock_news?tickers="+stockTicker+  "&limit=8&" +financialModelAPIKey)
     
     .then(function(newsResponse){
         if (newsResponse.ok){
@@ -157,6 +177,28 @@ function getRecentNews(stockTicker) {
         }
     
     })
+}
+
+function getStockGrades(ticker) {
+    fetch(baseStockUrl + "grade/" + ticker + '?limit=3&' +financialModelAPIKey)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                if (data) {
+                    renderGrades(data);
+                }
+                else {
+                    console.log("invalid data returned");
+                    document.querySelector("#grades-card").innerHTML = ""
+                }
+            });
+        } else {
+            console.log("Error" + response.statusText);
+        }
+    })
+    .catch(function (error) {
+        console.log("unable to connect to financial model");
+    });  
 }
 
 document.querySelector("#return-home").addEventListener("click", function(event){
