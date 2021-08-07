@@ -258,5 +258,6 @@ $(document).ready(function($) {
     alterClass();
 });
 
+
 init()
 
