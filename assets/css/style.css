@@ -3,6 +3,18 @@ body {
     background-size: cover;
 }
 
+.card-section{
+    min-height: 150px;
+}
+
+ul > li {
+    list-style-type: none;
+    text-align: left;
+}
+
+li > span {
+    text-align: right;
+}
 .content-box {
     border: solid black 2px;
     margin: 7px 3px;
@@ -76,7 +88,7 @@ body {
     border: solid black 3px;
     border-radius: 5px;
     background-color: rgba(56, 48, 129, 0.616);
-    
+    padding: 15px;
 }
 
 a {
@@ -89,7 +101,7 @@ a {
 
 #news-cell h3 {
     color: white;
-    padding: 15px;
+    
 }
 
 #results-box {
@@ -126,6 +138,7 @@ a {
 #stock-reference {
     font-size: 3rem;
 }
+
 
 #your-list {
     border: solid rgb(90, 89, 89) 2px;
