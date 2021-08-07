@@ -11,6 +11,10 @@
     text-align: center;
 }
 
+#clear-space {
+    text-align: end;
+}
+
 #data-cell {
     border: solid black 3px;
     border-radius: 5px;
@@ -49,6 +53,10 @@
     border-radius: 8px;
     margin: 15px;
     padding: 5px;
+}
+
+#reults-title {
+    justify-content: space-between;
 }
 
 #search-box {
