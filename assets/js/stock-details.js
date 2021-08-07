@@ -119,6 +119,44 @@ function applyNewCurrency(){
     yearLo.innerHTML = "Year Low:   " + (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
+
+function getRecentNews(stockTicker) {
+    
+    const newsDiv = document.querySelector("#news-cell");
+    var newsLi =[];
+    var br =[];
+    var a =[];
+
+    fetch(baseStockUrl+"stock_news?tickers="+stockTicker+  "&limit=5&" +financialModelAPIKey)
+    
+    .then(function(newsResponse){
+        if (newsResponse.ok){
+            return newsResponse.json();
+        }
+    })
+    .then(function(newsData){ 
+        
+        if (newsData !== null) {
+            console.log(newsData);
+
+            for (let index = 0; index < newsData.length; index++) {
+                newsLi[index] =  document.createElement('li');
+                a[index] =document.createElement('a');
+                
+                a[index].setAttribute("href",newsData[index].url);
+                a[index].innerHTML = (newsData[index].text).substring(0,100)+'...';
+                
+                br[index] = document.createElement('br');
+                newsLi[index].appendChild(a[index]);
+                newsDiv.append(newsLi[index]);
+                newsDiv.append(br[index]);
+            }
+        }
+    
+    })
+}
+
+
 document.querySelector("#return-home").addEventListener("click", function(event){
     document.location.replace("./index.html");
 })
