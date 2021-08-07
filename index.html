@@ -96,23 +96,52 @@
           </form>
         </div>
       </div>
-    </div>
-    <div class="grid-x">
-      <div class="cell large-9 auto section-header" id="your-list">
-        <h3>Your List</h3>
-        <table class="striped hover">
-          <thead>
-            <tr>
-              <th width="200">Company Name</th>
-              <th width="150">Ticker/Symbol</th>
-              <th width="100"></th>
-              <th width="75"></th>
-            </tr>
-            <tbody id="watch-list">
-              <!-- Append watch-list here -->
+    
+      <div class="grid-x grid-margin-x">
+        <div class="cell large-8 medium-8 section-header" id="your-list">
+          <h3>Your List</h3>
+          <table class="striped hover">
+            <thead>
+              <tr>
+                <th width="200">Company Name</th>
+                <th width="150">Ticker/Symbol</th>
+                <th width="100"></th>
+                <th width="75"></th>
+              </tr>
+              <tbody id="watch-list">
+                <!-- Append watch-list here -->
+              </tbody>
+            </thead>
+          </table>
+        </div>
+        <div class="cell large-4 medium-4 section-header" id="market-movers">
+          <h3>Market Movers</h3>
+          <h5>Gainers</h5>
+          <table>
+            <thead>
+              <th>Ticker</th>
+              <th>Price</th>
+              <th>Change</th>
+              <th>%</th>
+            </thead>
+            <tbody id="gainers">
+              <!-- Append market gainers here -->
             </tbody>
-          </thead>
-        </table>
+          </table>
+          <hr>
+          <h5>Losers</h5>
+          <table>
+            <thead>
+              <th>Ticker</th>
+              <th>Price</th>
+              <th>Change</th>
+              <th>%</th>
+            </thead>
+            <tbody id="losers">
+              <!-- Append market losers here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 

@@ -1,6 +1,8 @@
 const searchForm = document.querySelector("#search-form");
 const resultsTable = document.querySelector("#results-table");
 const watchList = document.querySelector("#watch-list");
+const gainers = document.querySelector("#gainers");
+const losers = document.querySelector("#losers");
 
 $(document).foundation();
 
@@ -133,6 +135,63 @@ function renderYourList() {
     })
 }
 
+function renderGainers(gainerArray) {
+    gainerArray.forEach(element => {
+        let tr = document.createElement("tr")
+        let tdtick = document.createElement("td")
+        let aTick = document.createElement("a")
+        aTick.innerHTML = element.ticker
+        tdtick.appendChild(aTick);
+        tr.appendChild(tdtick);
+        aTick.addEventListener("click", function() {
+            detailedInfo(element.ticker);
+        }, false);
+
+        let tdprice = document.createElement("td")
+        tdprice.innerHTML = element.price
+        tr.appendChild(tdprice)
+
+        let tdchange = document.createElement("td")
+        tdchange.innerHTML = element.changes
+        tr.appendChild(tdchange)
+
+        let tdpercent = document.createElement("td")
+        tdpercent.innerHTML = element.changesPercentage
+        tr.appendChild(tdpercent)
+
+        gainers.appendChild(tr);
+    });
+}
+
+function renderLosers(loserArray) {
+    loserArray.forEach(element => {
+        let tr = document.createElement("tr")
+        let tdtick = document.createElement("td")
+        let aTick = document.createElement("a")
+        aTick.innerHTML = element.ticker
+        tdtick.appendChild(aTick);
+        tr.appendChild(tdtick);
+        aTick.addEventListener("click", function() {
+            detailedInfo(element.ticker);
+        }, false);
+
+        let tdprice = document.createElement("td")
+        tdprice.innerHTML = element.price
+        tr.appendChild(tdprice)
+
+        let tdchange = document.createElement("td")
+        tdchange.innerHTML = element.changes
+        tr.appendChild(tdchange)
+
+        let tdpercent = document.createElement("td")
+        tdpercent.innerHTML = element.changesPercentage
+        tr.appendChild(tdpercent)
+
+        losers.appendChild(tr);
+       
+    });  
+}
+
 /**
  * API call to fetch stocks based on search terms
  * @author Nate Irvin <irv0735@gmail.com>
@@ -172,6 +231,35 @@ function stockSearch(searchTerm, exchangeChoice) {
         });
     } 
 };
+
+function getMarketMovers(){
+    fetch(baseStockUrl + "gainers?" + financialModelAPIKey)
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    renderGainers(data.splice(0,3))
+                });
+            } else {
+                console.log("Error" + response.statusText);
+            }
+        })
+        .catch(function (error) {
+            console.log("unable to connect to financial model");
+        });  
+    fetch(baseStockUrl + "losers?" + financialModelAPIKey)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                renderLosers(data.splice(0,3))
+            });
+        } else {
+            console.log("Error" + response.statusText);
+        }
+    })
+    .catch(function (error) {
+        console.log("unable to connect to financial model");
+    });  
+}
 
 /**
  * Adds selected stock to local storage, if it is not already present and then calls function to render
@@ -224,6 +312,7 @@ function init() {
         localStorage.setItem("yourList", JSON.stringify(watchListArray));
     }
     renderYourList();
+    getMarketMovers();
 }
 
 /**
@@ -256,11 +345,15 @@ $(document).ready(function($) {
             $("#results-box").addClass("medium-12 medium-order-2");
             $("#search-box").removeClass("auto medium-order-2");
             $("#search-box").addClass("medium-order-1");
+            $("#your-list").addClass("medium-12");
+            $("#market-movers").addClass("medium-12")
         } else if (ww >= 960) {
             $("#results-box").addClass("shrink medium-8 medium-order-1");
             $("#results-box").removeClass("medium-12 medium-order-2");
             $("#search-box").addClass("auto medium-order-2");
             $("#search-box").removeClass("medium-order-1");
+            $("#your-list").removeClass("medium-12");
+            $("#market-movers").removeClass("medium-12")
         };
     };
     $(window).resize(function() {
