@@ -95,6 +95,13 @@ function renderYourList() {
         let tr = document.createElement("tr")
         let tdName = document.createElement("td")
         let tdSymbol = document.createElement("td")
+        let tdMore = document.createElement("td");
+        tdMore.setAttribute("class", "more-info");
+        let moreBtn = document.createElement("button");
+        moreBtn.setAttribute("class", "button secondary custom-button");
+        moreBtn.setAttribute("id", "more-btn");
+        moreBtn.innerHTML = "More Info";
+        tdMore.appendChild(moreBtn);
         let tdRemove = document.createElement("td")
         tdRemove.setAttribute("class", "remove-btn")
         let deleteBtn = document.createElement("button")
@@ -105,10 +112,14 @@ function renderYourList() {
         tdSymbol.innerHTML= element.symbol
         tr.appendChild(tdName)
         tr.appendChild(tdSymbol)
+        tr.appendChild(tdMore)
         tr.appendChild(tdRemove)
         watchList.appendChild(tr)    
     });
-
+    $(".more-info").on("click", "button", function(event){
+        let selectedSymbol = $(this).closest("tr").children().eq(1).text();
+        detailedInfo(selectedSymbol);
+        });
     $(".remove-btn").on("click", "button", function(event){
         let selectedRowSymbol = $(this).closest("tr").children().eq(1).text();
         watchListArray = JSON.parse(localStorage.getItem("yourList"));

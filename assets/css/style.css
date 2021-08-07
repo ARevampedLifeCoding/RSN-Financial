@@ -21,6 +21,10 @@ body {
     text-align: center;
 }
 
+.more-info {
+    text-align: right;
+}
+
 .remove-btn {
     text-align: center;
 }
