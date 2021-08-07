@@ -155,4 +155,9 @@ function getRecentNews(stockTicker) {
     
     })
 }
+
+document.querySelector("#return-home").addEventListener("click", function(event){
+    document.location.replace("./index.html");
+})
+
 init();
