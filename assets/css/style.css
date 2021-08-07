@@ -36,7 +36,7 @@ body {
 #data-cell {
     border: solid black 3px;
     border-radius: 5px;
-    background-color: rgb(90, 89, 89);
+    background-color: rgba(169, 169, 169, 0.616);
     color: white;
 }
 
@@ -71,7 +71,7 @@ body {
 #news-cell {
     border: solid black 3px;
     border-radius: 5px;
-    background-color: rgb(22, 141, 189);
+    background-color: rgba(56, 48, 129, 0.616);
     
 }
 
@@ -83,9 +83,13 @@ a {
     list-style-type: none;
 }
 
+#news-cell h3 {
+    color: white;
+}
+
 #results-box {
     border: solid black 2px;
-    background:rgba(169, 169, 169, 0.616);
+    background-color:rgba(169, 169, 169, 0.616);
     border-radius: 8px;
     margin: 15px;
     padding: 5px;
