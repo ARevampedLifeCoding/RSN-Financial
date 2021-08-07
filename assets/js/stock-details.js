@@ -4,6 +4,8 @@ const lastPrice = document.querySelector("#last-price")
 const fiftyAverage = document.querySelector("#fifty-ave")
 const twoHundredAve = document.querySelector("#two-hun-ave")
 const priceChanges = document.querySelector("#price-changes")
+const percentChanges = document.querySelector("#percent-changes")
+
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
 const yearHi = document.querySelector("#year-hi")
@@ -51,10 +53,11 @@ function renderData(data) {
     finData = data;
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
-    lastPrice.innerHTML = "Last Price:   " + data.price.toFixed(2);
+    lastPrice.innerHTML =  data.price.toFixed(2);
     fiftyAverage.innerHTML = "50 Day Avg:   " + data.priceAvg50.toFixed(2);
     twoHundredAve.innerHTML = "200 Day Avg:   " + data.priceAvg200.toFixed(2);
-    priceChanges.innerHTML = "Change/Change%:   " + data.change.toFixed(2) + "  /  " + data.changesPercentage.toFixed(2); + "%";
+    priceChanges.innerHTML =  data.change.toFixed(2); 
+    percentChanges.innerHTML = data.changesPercentage.toFixed(2);
     dayHi.innerHTML = "Day High:   " + data.dayHigh.toFixed(2);
     dayLo.innerHTML = "Day Low:   " + data.dayLow.toFixed(2);
     yearHi.innerHTML = "Year High:   " + data.yearHigh.toFixed(2);
