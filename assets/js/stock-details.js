@@ -15,7 +15,7 @@ const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
-const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
+const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
 
 const baseExchangeUrl = "https://api.exchangeratesapi.io/v1/latest?";
 const exchangeAPIKey ="93316d725ce60b2d7c05753bfda8175e";
@@ -26,12 +26,13 @@ var finData;
 
 function init(){
     let ticker = localStorage.getItem("ticker");
-    fetch(baseStockUrl + "quote/" + ticker + financialModelAPIKey)
+    fetch(baseStockUrl + "quote/" + ticker + '?' +financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
                     renderData(data[0]);
+                    getRecentNews(ticker);
                 }
                 else {
                     console.log("invalid data returned");
