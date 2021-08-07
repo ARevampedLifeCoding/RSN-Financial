@@ -15,7 +15,7 @@ const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
-const financialModelAPIKey = "?apikey=6404b2cc55178671f57f48fc947b5f75"
+const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
 
 const baseExchangeUrl = "https://api.exchangeratesapi.io/v1/latest?";
 const exchangeAPIKey ="93316d725ce60b2d7c05753bfda8175e";
@@ -26,12 +26,13 @@ var finData;
 
 function init(){
     let ticker = localStorage.getItem("ticker");
-    fetch(baseStockUrl + "quote/" + ticker + financialModelAPIKey)
+    fetch(baseStockUrl + "quote/" + ticker + '?' +financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
                     renderData(data[0]);
+                    getRecentNews(ticker);
                 }
                 else {
                     console.log("invalid data returned");
@@ -119,4 +120,39 @@ function applyNewCurrency(){
     yearLo.innerHTML = "Year Low:   " + (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
+function getRecentNews(stockTicker) {
+    
+    const newsDiv = document.querySelector("#news-cell");
+    var newsLi =[];
+    var br =[];
+    var a =[];
+
+    fetch(baseStockUrl+"stock_news?tickers="+stockTicker+  "&limit=5&" +financialModelAPIKey)
+    
+    .then(function(newsResponse){
+        if (newsResponse.ok){
+            return newsResponse.json();
+        }
+    })
+    .then(function(newsData){ 
+        
+        if (newsData !== null) {
+            console.log(newsData);
+
+            for (let index = 0; index < newsData.length; index++) {
+                newsLi[index] =  document.createElement('li');
+                a[index] =document.createElement('a');
+                
+                a[index].setAttribute("href",newsData[index].url);
+                a[index].innerHTML = (newsData[index].text).substring(0,100)+'...';
+                
+                br[index] = document.createElement('br');
+                newsLi[index].appendChild(a[index]);
+                newsDiv.append(newsLi[index]);
+                newsDiv.append(br[index]);
+            }
+        }
+    
+    })
+}
 init();
