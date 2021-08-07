@@ -154,7 +154,4 @@ function getRecentNews(stockTicker) {
     
     })
 }
-
-
-
 init();
