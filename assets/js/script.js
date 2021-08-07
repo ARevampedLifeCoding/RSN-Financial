@@ -11,7 +11,11 @@ const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 
-
+/**
+ * Renders the results from the search and adds event listeners to the buttons created
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {array} matchingResults - array of ojects containing the results to be rendered
+ */
 function renderResults(matchingResults){
     resultsTable.innerHTML= ""
     if (matchingResults) {
@@ -79,6 +83,10 @@ function renderResults(matchingResults){
     }) 
 }
 
+/**
+ * Renders the list of stocks that have been added to the user's watch list (pulled from local storage)
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function renderYourList() {
     watchList.innerHTML = ""
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
@@ -87,6 +95,13 @@ function renderYourList() {
         let tr = document.createElement("tr")
         let tdName = document.createElement("td")
         let tdSymbol = document.createElement("td")
+        let tdMore = document.createElement("td");
+        tdMore.setAttribute("class", "more-info");
+        let moreBtn = document.createElement("button");
+        moreBtn.setAttribute("class", "button secondary custom-button");
+        moreBtn.setAttribute("id", "more-btn");
+        moreBtn.innerHTML = "More Info";
+        tdMore.appendChild(moreBtn);
         let tdRemove = document.createElement("td")
         tdRemove.setAttribute("class", "remove-btn")
         let deleteBtn = document.createElement("button")
@@ -97,10 +112,14 @@ function renderYourList() {
         tdSymbol.innerHTML= element.symbol
         tr.appendChild(tdName)
         tr.appendChild(tdSymbol)
+        tr.appendChild(tdMore)
         tr.appendChild(tdRemove)
         watchList.appendChild(tr)    
     });
-
+    $(".more-info").on("click", "button", function(event){
+        let selectedSymbol = $(this).closest("tr").children().eq(1).text();
+        detailedInfo(selectedSymbol);
+        });
     $(".remove-btn").on("click", "button", function(event){
         let selectedRowSymbol = $(this).closest("tr").children().eq(1).text();
         watchListArray = JSON.parse(localStorage.getItem("yourList"));
@@ -114,6 +133,12 @@ function renderYourList() {
     })
 }
 
+/**
+ * API call to fetch stocks based on search terms
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {string} searchTerm   company name or ticker to be searched
+ * @param {string} exchangeChoice  filter if they are looking for a stock on a specific exchange
+ */
 function stockSearch(searchTerm, exchangeChoice) {
     if (exchangeChoice !== "all") {
         fetch(baseStockUrl + "search?query=" + searchTerm + "&limit=10&exchange=" + exchangeChoice + financialModelAPIKey)
@@ -148,6 +173,12 @@ function stockSearch(searchTerm, exchangeChoice) {
     } 
 };
 
+/**
+ * Adds selected stock to local storage, if it is not already present and then calls function to render
+ * @author Randy Langston 
+ * @param {string} companyName 
+ * @param {string} stockSymbol 
+ */
 function addToYourList(companyName, stockSymbol){
     let match = false;
     watchListArray = JSON.parse(localStorage.getItem("yourList"));
@@ -169,12 +200,19 @@ function addToYourList(companyName, stockSymbol){
     } 
 }
 
+/**
+ * Saves the selected ticker in local storage and loads the stock_details page
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function detailedInfo(ticker) {
     localStorage.setItem("ticker", ticker);
     document.location.replace("./stock_details.html");
 }
 
-
+/**
+ * Called when the page loads, renders the previous search results and user's watchlist
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function init() {
     searchResults = JSON.parse(sessionStorage.getItem("searchResults"));
     if (searchResults) {
@@ -188,7 +226,9 @@ function init() {
     renderYourList();
 }
 
-
+/**
+ * Event listener for the search button
+ */
 searchForm.addEventListener("submit", function(event) {
     event.preventDefault();
     let searchText = document.querySelector("#search-text").value
@@ -205,6 +245,9 @@ searchForm.addEventListener("submit", function(event) {
     }  
 })
 
+/**
+ * Adjust classes based on window size for responsive adjustments
+ */
 $(document).ready(function($) {
     let alterClass = function() {
         let ww = document.body.clientWidth;
@@ -226,13 +269,6 @@ $(document).ready(function($) {
     alterClass();
 });
 
-// $(window).on("resize", function() {
-//     if($(window).width() <= 960) {
-
-//     } else {
-
-//     }
-// })
 
 init()
 

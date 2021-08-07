@@ -21,6 +21,10 @@ body {
     text-align: center;
 }
 
+.more-info {
+    text-align: right;
+}
+
 .remove-btn {
     text-align: center;
 }
@@ -85,6 +89,7 @@ a {
 
 #news-cell h3 {
     color: white;
+    padding: 15px;
 }
 
 #results-box {
@@ -137,12 +142,4 @@ a {
 }
 
 
-/* @media screen and (max-width:916px) {
-    #results-box {
-        font-size: .5rem;
-    }
-    #more-btn, #add-btn {
-        font-size: .5rem;
-    }
-} */
 
