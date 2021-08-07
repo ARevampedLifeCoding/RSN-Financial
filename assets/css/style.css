@@ -29,6 +29,10 @@ li > span {
     margin-bottom: 0px;
 }
 
+.custom-divider {
+    justify-content: center;
+}
+
 .custom-search {
     text-align: center;
 }
@@ -78,6 +82,10 @@ li > span {
     color: white;
 }
 
+#grades-card {
+    font-size: .85rem;
+}
+
 #homepage-header {
     text-align: center;
     text-shadow: 2px 2px gray;
@@ -87,8 +95,9 @@ li > span {
 #news-cell {
     border: solid black 3px;
     border-radius: 5px;
-    background-color: rgba(56, 48, 129, 0.616);
+    background-color: rgba(16, 61, 78, 0.753);
     padding: 15px;
+    margin-bottom: 15px;
 }
 
 a {
