@@ -25,81 +25,82 @@
       <h1>RSN Stock Selector</h1>
       <h2>A simple tool for finding stock symbols and conducting research.</h2>
     </header>
-      <div class="grid-contanier fluid">
-    <div class="grid-x" id="research-section">
-      <div class="cell medium-8 medium-order-1 small-order-2" id="results-box">
-        <div class="grid-x" id="results-title">
-          <div class="cell small-6">
-            <h3>Matching Results</h3>
-          </div>
-          <div class="cell small-6" id="clear-space"></div>
-        </div>
-        <table class="striped" id="results-display">
-          <thead>
-            <tr>
-              <th>Company Name</th>
-              <th>Ticker/Symbol</th>
-              <th>Currency</th>
-              <th>Exchange</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="results-table">
-            <!-- Append the search results here-->
-          </tbody>
-          
-        </table>
-      </div>
-      <div
-        class="cell auto medium-order-2 small-order-1 secondary"
-        id="search-box"
-      >
-        <h3>Search Terms</h3>
-        <form id="search-form">
-          <div class="grid-container">
-            <div class="grid-x grid-padding-x">
-              <div class="cell">
-                <label
-                  >Company or Ticker:
-                  <input
-                    type="text"
-                    id="search-text"
-                    placeholder="Ex. Microsoft or MSFT"
-                  />
-                </label>
-              </div>
-              <div class="cell">
-                <label
-                  >Exchange:
-                  <select id="exchange-select">
-                    <option value="all">Not Specified</option>
-                    <option value="etf">ETF</option>
-                    <option value="mutual_fund">Mutual Fund</option>
-                    <option value="commodity">Commodity</option>
-                    <option value="index">Index</option>
-                    <option value="crypto">Crypto</option>
-                    <option value="forex">FOREX</option>
-                    <option value="tsx">TSX</option>
-                    <option value="amex">AMEX</option>
-                    <option value="nasdaq">NASDAQ</option>
-                    <option value="nyse">NYSE</option>
-                  </select>
-                </label>
-              </div>
-              <div class="cell custom-search">
-                <button type="submit" class="secondary button">Search</button>
-              </div>
+
+    <div class="grid-container fluid">
+      <div class="grid-x grid-margin-x" id="research-section">
+        <div class="cell medium-order-1 small-order-2" id="results-box">
+          <div class="grid-x" id="results-title">
+            <div class="cell small-6 section-header">
+              <h3>Matching Results</h3>
+            </div>
+            <div class="cell small-6" id="clear-space">
+              <!-- Clear Results button appended by JS-->
             </div>
           </div>
-        </form>
+          <div class="cell">
+            <table class="striped hover" id="results-display">
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Ticker/Symbol</th>
+                  <th class="small-delete">Currency</th>
+                  <th class="small-delete">Exchange</th>
+                  <th width="50"></th>
+                  <th width="50"></th>
+                </tr>
+              </thead>
+              <tbody id="results-table">
+                <!-- Append the search results here-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="cell small-order-1 section-header" id="search-box">
+          <h3>Search Terms</h3>
+          <form id="search-form">
+            <div class="grid-container">
+              <div class="grid-x grid-padding-x">
+                <div class="cell">
+                  <label
+                    >Company or Ticker:
+                    <input
+                      type="text"
+                      id="search-text"
+                      placeholder="Ex. Microsoft or MSFT"
+                    />
+                  </label>
+                </div>
+                <div class="cell">
+                  <label
+                    >Exchange:
+                    <select id="exchange-select">
+                      <option value="all">Not Specified</option>
+                      <option value="etf">ETF</option>
+                      <option value="mutual_fund">Mutual Fund</option>
+                      <option value="commodity">Commodity</option>
+                      <option value="index">Index</option>
+                      <option value="crypto">Crypto</option>
+                      <option value="forex">FOREX</option>
+                      <option value="tsx">TSX</option>
+                      <option value="amex">AMEX</option>
+                      <option value="nasdaq">NASDAQ</option>
+                      <option value="nyse">NYSE</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="cell custom-search">
+                  <button type="submit" class="secondary button custom-button">Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
     <div class="grid-x">
-      <div class="cell auto" id="your-list">
+      <div class="cell auto section-header" id="your-list">
         <h3>Your List</h3>
-        <table class="striped">
+        <table class="striped hover">
           <thead>
             <tr>
               <th width="200">Company Name</th>

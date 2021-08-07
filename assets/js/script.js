@@ -17,7 +17,7 @@ function renderResults(matchingResults){
     if (matchingResults) {
         document.querySelector("#clear-space").innerHTML = ""
         let clearBtn = document.createElement("button")
-        clearBtn.setAttribute("class", "button warning")
+        clearBtn.setAttribute("class", "button warning custom-button")
         clearBtn.setAttribute("id", "clear-results")
         clearBtn.innerText = "Clear Results"
         document.querySelector("#clear-space").appendChild(clearBtn)
@@ -33,16 +33,18 @@ function renderResults(matchingResults){
         tdSymbol.textContent = element.symbol;
         newTr.appendChild(tdSymbol);
         let tdCurrency = document.createElement("td");
+        tdCurrency.setAttribute("class", "small-delete");
         tdCurrency.textContent = element.currency;
         newTr.appendChild(tdCurrency);
         let tdExchange = document.createElement("td");
+        tdExchange.setAttribute("class", "small-delete");
         tdExchange.textContent = element.exchangeShortName;
         newTr.appendChild(tdExchange);
 
         let tdAdd = document.createElement("td");
         tdAdd.setAttribute("class", "add-line");
         let addBtn = document.createElement("button");
-        addBtn.setAttribute("class", "button primary");
+        addBtn.setAttribute("class", "button primary custom-button");
         addBtn.setAttribute("id", "add-btn");
         addBtn.innerHTML = "ADD";
         tdAdd.appendChild(addBtn);
@@ -51,7 +53,7 @@ function renderResults(matchingResults){
         let tdMore = document.createElement("td");
         tdMore.setAttribute("class", "more-line");
         let moreBtn = document.createElement("button");
-        moreBtn.setAttribute("class", "button secondary");
+        moreBtn.setAttribute("class", "button secondary custom-button");
         moreBtn.setAttribute("id", "more-btn");
         moreBtn.innerHTML = "More Info";
         tdMore.appendChild(moreBtn);
@@ -88,7 +90,7 @@ function renderYourList() {
         let tdRemove = document.createElement("td")
         tdRemove.setAttribute("class", "remove-btn")
         let deleteBtn = document.createElement("button")
-        deleteBtn.setAttribute("class", "button warning")
+        deleteBtn.setAttribute("class", "button alert custom-button")
         deleteBtn.innerHTML = "REMOVE"
         tdRemove.appendChild(deleteBtn)
         tdName.innerHTML= element.name
@@ -202,6 +204,35 @@ searchForm.addEventListener("submit", function(event) {
         })
     }  
 })
+
+$(document).ready(function($) {
+    let alterClass = function() {
+        let ww = document.body.clientWidth;
+        if (ww < 960) {
+            $("#results-box").removeClass("shrink medium-8 medium-order-1");
+            $("#results-box").addClass("medium-12 medium-order-2");
+            $("#search-box").removeClass("auto medium-order-2");
+            $("#search-box").addClass("medium-order-1");
+        } else if (ww >= 960) {
+            $("#results-box").addClass("shrink medium-8 medium-order-1");
+            $("#results-box").removeClass("medium-12 medium-order-2");
+            $("#search-box").addClass("auto medium-order-2");
+            $("#search-box").removeClass("medium-order-1");
+        };
+    };
+    $(window).resize(function() {
+        alterClass();
+    });
+    alterClass();
+});
+
+// $(window).on("resize", function() {
+//     if($(window).width() <= 960) {
+
+//     } else {
+
+//     }
+// })
 
 init()
 
