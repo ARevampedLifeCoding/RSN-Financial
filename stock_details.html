@@ -27,6 +27,7 @@
         
         <!-- Dynamically Update the H3 based on the stock being viewed -->
         <h3 id="stock-reference"></h3>
+        <h3 id="real-time">Current Price (USD): <span id="real-time-span"></span></h3>
         <h4 id="exchange"></h4>
         <!-- <label for="currency">Choose a currency:</label> -->
 
@@ -53,15 +54,29 @@
                <div class ="grid-x grid-margin-x"> 
                     <div class="cell large-3">
                         <div class="card">
-                            <div class ="card-divider">
-                                Price Details
+                            <div class ="card-divider custom-divider">
+                                Recent Price Details
                             </div>
                             <div class="card-section">
-                                <ul>
+                                <!-- <ul>
                                     <li>Last Price: <span id="last-price"></span></li>
                                     <li>Price Change: <span id="price-changes"> </span ></li>
                                     <li>Percent Change: <span id="percent-changes"> </span ></li>
-                                </ul>
+                                </ul> -->
+                                <table class="unstriped hover">
+                                    <tr>
+                                        <td>Last Price:</td>
+                                        <td><span id="last-price"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price Change:</td>
+                                        <td><span id="price-changes"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Percent Change:</td>
+                                        <td><span id="percent-changes"></span></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -143,15 +158,29 @@
                 
                     <div class="cell large-3">
                         <div class="card">
-                            <div class ="card-divider">
+                            <div class ="card-divider custom-divider">
                                 Key Metrics
                             </div>
                             <div class="card-section">
-                                <ul>
+                                <!-- <ul>
                                     <li> <span id="eps"></span></li>
                                     <li> <span id="pe"> </span ></li>
                                     
-                                </ul>
+                                </ul> -->
+                                <table class="unstriped hover">
+                                    <tr>
+                                        <td>EPS:</td>
+                                        <td><span id="eps"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>P/E:</td>
+                                        <td><span id="pe"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Market Cap:</td>
+                                        <td><span id="market-cap"></span></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
