@@ -138,6 +138,12 @@ li > span {
     
 }
 
+#real-time {
+    background-color: rgba(169, 169, 169, 0.616);
+    border-radius: 3px;
+    padding: 10px 20px;
+}
+
 #results-box {
     border: solid black 2px;
     background-color:rgba(169, 169, 169, 0.616);

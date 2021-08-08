@@ -1,4 +1,5 @@
 const stockReference = document.querySelector("#stock-reference")
+const realTime = document.querySelector("#real-time-span")
 const exchange = document.querySelector("#exchange")
 const lastPrice = document.querySelector("#last-price")
 const fiftyAverage = document.querySelector("#fifty-ave")
@@ -65,19 +66,18 @@ function renderData(data) {
     yearHi.innerHTML = data.yearHigh.toFixed(2);
     yearLo.innerHTML = data.yearLow.toFixed(2);
     if (data.eps) {
-        eps.innerHTML = "EPS:   " + data.eps.toFixed(2);
+        eps.innerHTML = data.eps.toFixed(2);
     }
     if (data.pe) {
-        peRatio.innerHTML = "P/E:   " + data.pe.toFixed(2);
+        peRatio.innerHTML = data.pe.toFixed(2);
     }
     if (data.marketcap) {
-        marketCap.innerHTML = "Market Cap:   " + (data.marketCap/1000000).toFixed(3) + " Million";
+        marketCap.innerHTML = (data.marketCap/1000000).toFixed(3) + " Million";
     }
 }
 
 function renderGrades(grades) {
     grades.forEach(element => {
-        console.log(stockGrades)
         let tRow = document.createElement("tr")
         stockGrades.appendChild(tRow)
         let tdName = document.createElement("td")
@@ -96,19 +96,16 @@ function renderGrades(grades) {
 }
 
 prefCurrency.addEventListener('change', function(){
-    // console.log (prefCurrency.value);
     currency = prefCurrency.value;
     var exchangeQueryUrl = baseExchangeUrl+'access_key='+exchangeAPIKey+'&base=USD';
     // console.log(exchangeQueryUrl);
     //fetch("http://api.exchangeratesapi.io/v1/latest?access_key=93316d725ce60b2d7c05753bfda8175e&base=USD")
     fetch(exchangeQueryUrl)
     .then(function(ExchangeResponse){
-    console.log(ExchangeResponse);
     return ExchangeResponse.json();
     })
 
     .then(function(ExchangeData){
-    console.log(ExchangeData);
     
     switch (currency) {
         case 'CAD':
@@ -160,8 +157,6 @@ function getRecentNews(stockTicker) {
     .then(function(newsData){ 
         
         if (newsData !== null) {
-            console.log(newsData);
-
             for (let index = 0; index < newsData.length; index++) {
                 newsLi[index] =  document.createElement('li');
                 a[index] =document.createElement('a');
@@ -197,7 +192,7 @@ function getStockGrades(ticker) {
         }
     })
     .catch(function (error) {
-        console.log("unable to connect to financial model");
+        console.log("unable to connect to financial model" + error);
     });  
 }
 
@@ -206,3 +201,24 @@ document.querySelector("#return-home").addEventListener("click", function(event)
 })
 
 init();
+setInterval(function(){
+    let newTicker = localStorage.getItem("ticker");
+    fetch(baseStockUrl + "quote-short/" + newTicker + "?" + financialModelAPIKey)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                if (data) {
+                    realTime.innerHTML = data[0].price.toFixed(2)
+                } else {
+                    console.log("invalid data returned");
+                    realTime.innerHTML = "";
+                }
+            });
+        } else {
+            console.log("Error" + response.statusText);
+        }
+    })
+    .catch(function (error) {
+        console.log("Unable to connect to financial model" + error);
+    });
+},2000);
