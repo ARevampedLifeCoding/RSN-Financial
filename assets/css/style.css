@@ -1,5 +1,5 @@
 a {
-    color: white;
+    color:#0a0a0a;
 }
 
 body {
@@ -11,9 +11,10 @@ body {
     min-height: 150px;
 }
 
-ul > li {
+div > li {
     list-style-type: none;
     text-align: left;
+    padding: 10px;
 }
 
 li > span {
@@ -122,11 +123,11 @@ li > span {
 }
 
 #news-cell {
-    border: solid black 3px;
-    border-radius: 5px;
-    background-color: rgba(16, 61, 78, 0.753);
-    padding: 15px;
-    margin-bottom: 15px;
+    /* border: solid black 3px; */
+    /* border-radius: 5px; */
+    /* background-color: rgba(16, 61, 78, 0.753); */
+    /* padding: 15px; */
+    /* margin-bottom: 15px; */
 }
 
 #news-cell > li {

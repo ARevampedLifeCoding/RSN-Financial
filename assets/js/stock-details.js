@@ -142,7 +142,7 @@ function applyNewCurrency(){
 
 function getRecentNews(stockTicker) {
     
-    const newsDiv = document.querySelector("#news-cell");
+    const newsDiv = document.querySelector("#news-cell-card");
     var newsLi =[];
     var br =[];
     var a =[];
@@ -180,6 +180,7 @@ function getStockGrades(ticker) {
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
+                    console.log(data);
                     renderGrades(data);
                 }
                 else {
