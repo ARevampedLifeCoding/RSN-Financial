@@ -17,6 +17,7 @@ const marketCap = document.querySelector("#market-cap")
 const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
 const stockGrades = document.querySelector("#grade-data");
+const companyDescription = document.querySelector("#company-details");
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
@@ -55,6 +56,20 @@ function init(){
     })
     .catch(function (error) {
         console.log("unable to connect to financial model");
+    });
+    fetch(baseStockUrl + "profile/" + ticker + "?" + financialModelAPIKey)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                if (data) {
+                    companyDescription.innerHTML = data[0].description
+                } else {
+                    console.log("invalid data returned");
+                }
+            });
+        } else {
+            console.log("Error" + response.statusText);
+        }
     });
 };
 
