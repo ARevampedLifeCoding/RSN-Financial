@@ -135,61 +135,60 @@ function renderYourList() {
     })
 }
 
+/**
+ * Takes an array passed from an API call fetch and appends the row to the appropriate location
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} gainerArray 
+ */
 function renderGainers(gainerArray) {
     gainerArray.forEach(element => {
-        let tr = document.createElement("tr")
-        let tdtick = document.createElement("td")
-        let aTick = document.createElement("a")
-        aTick.innerHTML = element.ticker
-        tdtick.appendChild(aTick);
-        tr.appendChild(tdtick);
-        aTick.addEventListener("click", function() {
-            detailedInfo(element.ticker);
-        }, false);
-
-        let tdprice = document.createElement("td")
-        tdprice.innerHTML = element.price
-        tr.appendChild(tdprice)
-
-        let tdchange = document.createElement("td")
-        tdchange.innerHTML = element.changes
-        tr.appendChild(tdchange)
-
-        let tdpercent = document.createElement("td")
-        tdpercent.innerHTML = element.changesPercentage
-        tr.appendChild(tdpercent)
-
+        let tr = renderMover(element);
         gainers.appendChild(tr);
     });
 }
 
+/**
+ * Takes an array passed from an API call fetch and appends the row to the appropriate location
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} loserArray 
+ */
 function renderLosers(loserArray) {
     loserArray.forEach(element => {
-        let tr = document.createElement("tr")
-        let tdtick = document.createElement("td")
-        let aTick = document.createElement("a")
-        aTick.innerHTML = element.ticker
-        tdtick.appendChild(aTick);
-        tr.appendChild(tdtick);
-        aTick.addEventListener("click", function() {
-            detailedInfo(element.ticker);
-        }, false);
-
-        let tdprice = document.createElement("td")
-        tdprice.innerHTML = element.price
-        tr.appendChild(tdprice)
-
-        let tdchange = document.createElement("td")
-        tdchange.innerHTML = element.changes
-        tr.appendChild(tdchange)
-
-        let tdpercent = document.createElement("td")
-        tdpercent.innerHTML = element.changesPercentage
-        tr.appendChild(tdpercent)
-
+        let tr = renderMover(element);
         losers.appendChild(tr);
        
     });  
+}
+
+/**
+ * Takes an object and creates a table row populated with the data from the object
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {object} itemToAdd 
+ * @returns HTML Element <tr> to be appended to the appropriate loction in the dom
+ */
+function renderMover(itemToAdd) {
+    let tr = document.createElement("tr")
+    let tdtick = document.createElement("td")
+    let aTick = document.createElement("a")
+    aTick.innerHTML = itemToAdd.ticker
+    tdtick.appendChild(aTick);
+    tr.appendChild(tdtick);
+    aTick.addEventListener("click", function() {
+        detailedInfo(itemToAdd.ticker);
+    }, false);
+
+    let tdprice = document.createElement("td")
+    tdprice.innerHTML = itemToAdd.price
+    tr.appendChild(tdprice)
+
+    let tdchange = document.createElement("td")
+    tdchange.innerHTML = itemToAdd.changes
+    tr.appendChild(tdchange)
+
+    let tdpercent = document.createElement("td")
+    tdpercent.innerHTML = itemToAdd.changesPercentage
+    tr.appendChild(tdpercent)
+    return tr;
 }
 
 /**
@@ -232,6 +231,10 @@ function stockSearch(searchTerm, exchangeChoice) {
     } 
 };
 
+/**
+ * Gets the Market Movers using an API call and then passes the data to functions to be rendered on the page
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function getMarketMovers(){
     fetch(baseStockUrl + "gainers?" + financialModelAPIKey)
         .then(function(response) {
