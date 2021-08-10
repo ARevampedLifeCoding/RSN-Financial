@@ -29,6 +29,11 @@ li > span {
     font-size: 1.25rem;
 }
 
+.custom-add {
+    border-radius: 3px;
+    padding: 7px 10px; 
+    font-size: 1.5rem;   
+}
 .custom-button {
     border-radius: 3px;
     margin-bottom: 0px;

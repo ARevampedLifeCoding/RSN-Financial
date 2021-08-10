@@ -6,6 +6,7 @@ const fiftyAverage = document.querySelector("#fifty-ave")
 const twoHundredAve = document.querySelector("#two-hun-ave")
 const priceChanges = document.querySelector("#price-changes")
 const percentChanges = document.querySelector("#percent-changes")
+const addToList = document.querySelector("#add-to-list")
 
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
@@ -19,12 +20,15 @@ const exchangeRate = document.querySelector("#exchange-rate");
 const stockGrades = document.querySelector("#grade-data");
 const companyDescription = document.querySelector("#company-details");
 
+$(document).foundation();
+
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
 
 const baseExchangeUrl = "https://api.exchangeratesapi.io/v1/latest?";
 const exchangeAPIKey ="93316d725ce60b2d7c05753bfda8175e";
 
+let companyName = "";
 var currency;
 var currencyMultiplier;
 var finData;
@@ -42,6 +46,7 @@ function init(){
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
+                    companyName = data[0].name;
                     renderData(data[0]);
                     getRecentNews(ticker);
                     getStockGrades(ticker);
@@ -249,6 +254,25 @@ function getStockGrades(ticker) {
 // Event listener for the return to main screen button
 document.querySelector("#return-home").addEventListener("click", function(event){
     document.location.replace("./index.html");
+})
+
+// Event listener to add the stock to your list
+document.querySelector("#add-to-list").addEventListener("click", function(event){
+    let stockSymbol = localStorage.getItem("ticker");
+    let match = false;
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    watchListArray.forEach(element => {
+        if (stockSymbol == element.symbol) {
+            match = true;
+            return;
+        } 
+    });
+    if (!match) {
+        let stockObject = {"name": companyName, "symbol": stockSymbol};
+        watchListArray.push(stockObject);
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+        renderYourList()
+    } 
 })
 
 
