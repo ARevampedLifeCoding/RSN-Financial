@@ -39,6 +39,11 @@ li > span {
     margin-bottom: 0px;
 }
 
+.custom-button-nav {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
 .custom-divider {
     justify-content: center;
 }
@@ -152,11 +157,6 @@ li > span {
 
 #results-title {
     justify-content: space-between;
-}
-
-#return-home {
-    margin-left: 10px;
-    margin-top: 10px;
 }
 
 #screen-form label {
