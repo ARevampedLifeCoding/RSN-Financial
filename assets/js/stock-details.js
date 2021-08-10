@@ -264,7 +264,10 @@ document.querySelector("#add-to-list").addEventListener("click", function(event)
     watchListArray.forEach(element => {
         if (stockSymbol == element.symbol) {
             match = true;
-            return;
+            $("#in-list").foundation('open');
+            $('#in-list').on("click", "button", function(event) {
+                document.location = "./stock_details.html"
+            })
         } 
     });
     if (!match) {
