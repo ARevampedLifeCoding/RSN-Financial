@@ -6,6 +6,7 @@ const fiftyAverage = document.querySelector("#fifty-ave")
 const twoHundredAve = document.querySelector("#two-hun-ave")
 const priceChanges = document.querySelector("#price-changes")
 const percentChanges = document.querySelector("#percent-changes")
+const addToList = document.querySelector("#add-to-list")
 
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
@@ -17,6 +18,9 @@ const marketCap = document.querySelector("#market-cap")
 const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
 const stockGrades = document.querySelector("#grade-data");
+const companyDescription = document.querySelector("#company-details");
+
+$(document).foundation();
 
 const baseStockUrl = "https://financialmodelingprep.com/api/v3/"
 const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
@@ -24,10 +28,17 @@ const financialModelAPIKey = "apikey=6404b2cc55178671f57f48fc947b5f75"
 const baseExchangeUrl = "https://api.exchangeratesapi.io/v1/latest?";
 const exchangeAPIKey ="93316d725ce60b2d7c05753bfda8175e";
 
+let companyName = "";
 var currency;
 var currencyMultiplier;
 var finData;
 
+
+/**
+ * Called when the page is loaded to make an API call, make additional API calls and pass the data to be rendered to
+ * additional functions
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function init(){
     let ticker = localStorage.getItem("ticker");
     fetch(baseStockUrl + "quote/" + ticker + '?' +financialModelAPIKey)
@@ -35,6 +46,7 @@ function init(){
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
+                    companyName = data[0].name;
                     renderData(data[0]);
                     getRecentNews(ticker);
                     getStockGrades(ticker);
@@ -50,8 +62,27 @@ function init(){
     .catch(function (error) {
         console.log("unable to connect to financial model");
     });
+    fetch(baseStockUrl + "profile/" + ticker + "?" + financialModelAPIKey)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                if (data) {
+                    companyDescription.innerHTML = data[0].description
+                } else {
+                    console.log("invalid data returned");
+                }
+            });
+        } else {
+            console.log("Error" + response.statusText);
+        }
+    });
 };
 
+/**
+ * Renders the data returned from the main API call
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} data basic stock information 
+ */
 function renderData(data) {
     finData = data;
     stockReference.innerHTML = data.name + " / " + data.symbol;
@@ -76,6 +107,11 @@ function renderData(data) {
     }
 }
 
+/**
+ * Renders the 3 most recent stock grades/changes
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} grades obtained and passed in from an API call
+ */
 function renderGrades(grades) {
     grades.forEach(element => {
         let tRow = document.createElement("tr")
@@ -95,6 +131,10 @@ function renderGrades(grades) {
     });
 }
 
+/**
+ * 
+ * @author Satish Iyer
+ */
 prefCurrency.addEventListener('change', function(){
     currency = prefCurrency.value;
     var exchangeQueryUrl = baseExchangeUrl+'access_key='+exchangeAPIKey+'&base=USD';
@@ -130,6 +170,10 @@ prefCurrency.addEventListener('change', function(){
     })
 })
 
+/**
+ * 
+ * @author Satish Iyer
+ */
 function applyNewCurrency(){
     lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
@@ -140,6 +184,11 @@ function applyNewCurrency(){
     yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
+/**
+ * 
+ * @author Satisy Iyer
+ * @param {*} stockTicker 
+ */
 function getRecentNews(stockTicker) {
     
     const newsDiv = document.querySelector("#news-cell-card");
@@ -162,6 +211,7 @@ function getRecentNews(stockTicker) {
                 a[index] =document.createElement('a');
                 
                 a[index].setAttribute("href",newsData[index].url);
+                a[index].setAttribute("target", "_blank");
                 a[index].innerHTML = (newsData[index].text).substring(0,100)+'...';
                 
                 br[index] = document.createElement('br');
@@ -174,13 +224,17 @@ function getRecentNews(stockTicker) {
     })
 }
 
+/**
+ * API call to get the recent stock grades and pass to a render function
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {String} ticker The ticker from local storage that the page was loaded based on 
+ */
 function getStockGrades(ticker) {
     fetch(baseStockUrl + "grade/" + ticker + '?limit=3&' +financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
-                    console.log(data);
                     renderGrades(data);
                 }
                 else {
@@ -197,11 +251,38 @@ function getStockGrades(ticker) {
     });  
 }
 
+// Event listener for the return to main screen button
 document.querySelector("#return-home").addEventListener("click", function(event){
     document.location.replace("./index.html");
 })
 
+// Event listener to add the stock to your list
+document.querySelector("#add-to-list").addEventListener("click", function(event){
+    let stockSymbol = localStorage.getItem("ticker");
+    let match = false;
+    watchListArray = JSON.parse(localStorage.getItem("yourList"));
+    watchListArray.forEach(element => {
+        if (stockSymbol == element.symbol) {
+            match = true;
+            return;
+        } 
+    });
+    if (!match) {
+        let stockObject = {"name": companyName, "symbol": stockSymbol};
+        watchListArray.push(stockObject);
+        localStorage.setItem("yourList", JSON.stringify(watchListArray));
+        renderYourList()
+    } 
+})
+
+
 init();
+
+/**
+ * Interval function to make an API call for a short "real-time" quote that updates 
+ * every 2 seconds.
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 setInterval(function(){
     let newTicker = localStorage.getItem("ticker");
     fetch(baseStockUrl + "quote-short/" + newTicker + "?" + financialModelAPIKey)

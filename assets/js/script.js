@@ -1,4 +1,5 @@
 const searchForm = document.querySelector("#search-form");
+const screenForm = document.querySelector("#screen-form");
 const resultsTable = document.querySelector("#results-table");
 const watchList = document.querySelector("#watch-list");
 const gainers = document.querySelector("#gainers");
@@ -14,7 +15,7 @@ const financialModelAPIKey = "&apikey=6404b2cc55178671f57f48fc947b5f75"
 
 
 /**
- * Renders the results from the search and adds event listeners to the buttons created
+ * Renders the results from the search or screener and adds event listeners to the buttons created
  * @author Nate Irvin <irv0735@gmail.com>
  * @param {array} matchingResults - array of ojects containing the results to be rendered
  */
@@ -33,15 +34,15 @@ function renderResults(matchingResults){
         newTr.setAttribute("class", "search-result");
         
         let tdName = document.createElement("td");
-        tdName.textContent = element.name;
+        if (element.name) {
+            tdName.textContent = element.name;
+        } else {
+            tdName.textContent = element.companyName
+        }
         newTr.appendChild(tdName);
         let tdSymbol = document.createElement("td");
         tdSymbol.textContent = element.symbol;
         newTr.appendChild(tdSymbol);
-        let tdCurrency = document.createElement("td");
-        tdCurrency.setAttribute("class", "small-delete");
-        tdCurrency.textContent = element.currency;
-        newTr.appendChild(tdCurrency);
         let tdExchange = document.createElement("td");
         tdExchange.setAttribute("class", "small-delete");
         tdExchange.textContent = element.exchangeShortName;
@@ -135,61 +136,60 @@ function renderYourList() {
     })
 }
 
+/**
+ * Takes an array passed from an API call fetch and appends the row to the appropriate location
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} gainerArray 
+ */
 function renderGainers(gainerArray) {
     gainerArray.forEach(element => {
-        let tr = document.createElement("tr")
-        let tdtick = document.createElement("td")
-        let aTick = document.createElement("a")
-        aTick.innerHTML = element.ticker
-        tdtick.appendChild(aTick);
-        tr.appendChild(tdtick);
-        aTick.addEventListener("click", function() {
-            detailedInfo(element.ticker);
-        }, false);
-
-        let tdprice = document.createElement("td")
-        tdprice.innerHTML = element.price
-        tr.appendChild(tdprice)
-
-        let tdchange = document.createElement("td")
-        tdchange.innerHTML = element.changes
-        tr.appendChild(tdchange)
-
-        let tdpercent = document.createElement("td")
-        tdpercent.innerHTML = element.changesPercentage
-        tr.appendChild(tdpercent)
-
+        let tr = renderMover(element);
         gainers.appendChild(tr);
     });
 }
 
+/**
+ * Takes an array passed from an API call fetch and appends the row to the appropriate location
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} loserArray 
+ */
 function renderLosers(loserArray) {
     loserArray.forEach(element => {
-        let tr = document.createElement("tr")
-        let tdtick = document.createElement("td")
-        let aTick = document.createElement("a")
-        aTick.innerHTML = element.ticker
-        tdtick.appendChild(aTick);
-        tr.appendChild(tdtick);
-        aTick.addEventListener("click", function() {
-            detailedInfo(element.ticker);
-        }, false);
-
-        let tdprice = document.createElement("td")
-        tdprice.innerHTML = element.price
-        tr.appendChild(tdprice)
-
-        let tdchange = document.createElement("td")
-        tdchange.innerHTML = element.changes
-        tr.appendChild(tdchange)
-
-        let tdpercent = document.createElement("td")
-        tdpercent.innerHTML = element.changesPercentage
-        tr.appendChild(tdpercent)
-
+        let tr = renderMover(element);
         losers.appendChild(tr);
        
     });  
+}
+
+/**
+ * Takes an object and creates a table row populated with the data from the object
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {object} itemToAdd 
+ * @returns HTML Element <tr> to be appended to the appropriate loction in the dom
+ */
+function renderMover(itemToAdd) {
+    let tr = document.createElement("tr")
+    let tdtick = document.createElement("td")
+    let aTick = document.createElement("a")
+    aTick.innerHTML = itemToAdd.ticker
+    tdtick.appendChild(aTick);
+    tr.appendChild(tdtick);
+    aTick.addEventListener("click", function() {
+        detailedInfo(itemToAdd.ticker);
+    }, false);
+
+    let tdprice = document.createElement("td")
+    tdprice.innerHTML = itemToAdd.price
+    tr.appendChild(tdprice)
+
+    let tdchange = document.createElement("td")
+    tdchange.innerHTML = itemToAdd.changes
+    tr.appendChild(tdchange)
+
+    let tdpercent = document.createElement("td")
+    tdpercent.innerHTML = itemToAdd.changesPercentage
+    tr.appendChild(tdpercent)
+    return tr;
 }
 
 /**
@@ -232,6 +232,68 @@ function stockSearch(searchTerm, exchangeChoice) {
     } 
 };
 
+/**
+ * Does an API fetch based on the input paramaters and then passes results
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Number} mcMin market-cap Min 
+ * @param {Number} mcMax market-cap Max 
+ * @param {Number} pMin price Min
+ * @param {Number} pMax price Max
+ * @param {Number} vMin volume Min
+ * @param {Number} vMax volume Max
+ * @param {Number} divMin Dividend Min
+ * @param {String} sector 
+ * @param {String} industry 
+ */
+function stockScreener(mcMin, mcMax, pMin, pMax, vMin, vMax, divMin, sector, industry) {
+    let url = baseStockUrl + "stock-screener?";
+    if (mcMin) {
+        url = url + "marketCapMoreThan=" + mcMin + "&";
+    }
+    if (mcMax) {
+        url = url + "marketCapLessThan=" + mcMax + "&";
+    }
+    if (pMin) {
+        url = url + "priceMoreThan=" + pMin + "&";
+    }
+    if (pMax) {
+        url = url + "priceLessThan=" + pMax + "&";
+    }
+    if (vMin) {
+        url = url + "volumeMoreThan=" + vMin + "&";
+    }
+    if (vMax) {
+        url = url + "volumeLessThan=" + vMax + "&";
+    }
+    if (divMin) {
+        url = url + "dividendMoreThan=" + divMin + "&";
+    }
+    if (sector !== "") {
+        url = url + "sector=" + sector + "&";
+    }
+    if (industry !== "") {
+        url = url + "industry=" + industry + "&";
+    }
+    url = url + "limit=10" + financialModelAPIKey
+    fetch(url)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                renderResults(data);
+            });
+        } else {
+            console.log("Error" + response.statusText)
+        }
+    })
+    .catch(function (error) {
+        console.log("unable to connect to financial model");
+    });
+}
+
+/**
+ * Gets the Market Movers using an API call and then passes the data to functions to be rendered on the page
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function getMarketMovers(){
     fetch(baseStockUrl + "gainers?" + financialModelAPIKey)
         .then(function(response) {
@@ -329,6 +391,32 @@ searchForm.addEventListener("submit", function(event) {
     else {
         $("#blank-search").foundation("open")
         $("#blank-search").on("click", "button", function(event){
+            document.location = "./index.html"
+        })
+    }  
+})
+
+/**
+ * Event listener for the stock screener button
+ */
+ screenForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let mcMin = document.querySelector("#mc-min").value
+    let mcMax = document.querySelector("#mc-max").value
+    let priceMin = document.querySelector("#price-min").value
+    let priceMax = document.querySelector("#price-max").value
+    let volumeMin = document.querySelector("#volume-min").value
+    let volumeMax = document.querySelector("#volume-max").value
+    let divMin = document.querySelector("#dividend-min").value
+    let sector = document.querySelector("#sector").value
+    let industry = document.querySelector("#industry").value
+
+    if (mcMin || mcMax || priceMin || priceMax || volumeMin || volumeMax || divMin || sector || industry) {
+       stockScreener(mcMin, mcMax, priceMin, priceMax, volumeMin, volumeMax, divMin, sector, industry);
+    }
+    else {
+        $("#blank-screen").foundation("open")
+        $("#blank-screen").on("click", "button", function(event){
             document.location = "./index.html"
         })
     }  

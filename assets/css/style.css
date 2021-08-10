@@ -29,6 +29,11 @@ li > span {
     font-size: 1.25rem;
 }
 
+.custom-add {
+    border-radius: 3px;
+    padding: 7px 10px; 
+    font-size: 1.5rem;   
+}
 .custom-button {
     border-radius: 3px;
     margin-bottom: 0px;
@@ -122,14 +127,6 @@ li > span {
     font-size: .85rem;
 }
 
-#news-cell {
-    /* border: solid black 3px; */
-    /* border-radius: 5px; */
-    /* background-color: rgba(16, 61, 78, 0.753); */
-    /* padding: 15px; */
-    /* margin-bottom: 15px; */
-}
-
 #news-cell > li {
     list-style-type: none;
 }
@@ -162,13 +159,17 @@ li > span {
     margin-top: 10px;
 }
 
+#screen-form label {
+    color: white;
+}
+
 #search-box {
     border: solid rgb(1, 1, 56) 2px;
     border-radius: 8px;
     background-color: rgba(16, 61, 78, 0.753);
     margin: 15px;
     padding: 5px;
-    height: 300px;
+    /* height: 300px; */
 }
 
 #search-form label {
