@@ -28,6 +28,12 @@ var currency;
 var currencyMultiplier;
 var finData;
 
+
+/**
+ * Called when the page is loaded to make an API call, make additional API calls and pass the data to be rendered to
+ * additional functions
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 function init(){
     let ticker = localStorage.getItem("ticker");
     fetch(baseStockUrl + "quote/" + ticker + '?' +financialModelAPIKey)
@@ -52,6 +58,11 @@ function init(){
     });
 };
 
+/**
+ * Renders the data returned from the main API call
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} data basic stock information 
+ */
 function renderData(data) {
     finData = data;
     stockReference.innerHTML = data.name + " / " + data.symbol;
@@ -76,6 +87,11 @@ function renderData(data) {
     }
 }
 
+/**
+ * Renders the 3 most recent stock grades/changes
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {Array} grades obtained and passed in from an API call
+ */
 function renderGrades(grades) {
     grades.forEach(element => {
         let tRow = document.createElement("tr")
@@ -95,6 +111,10 @@ function renderGrades(grades) {
     });
 }
 
+/**
+ * 
+ * @author Satish Iyer
+ */
 prefCurrency.addEventListener('change', function(){
     currency = prefCurrency.value;
     var exchangeQueryUrl = baseExchangeUrl+'access_key='+exchangeAPIKey+'&base=USD';
@@ -130,6 +150,10 @@ prefCurrency.addEventListener('change', function(){
     })
 })
 
+/**
+ * 
+ * @author Satish Iyer
+ */
 function applyNewCurrency(){
     lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
@@ -140,6 +164,11 @@ function applyNewCurrency(){
     yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
+/**
+ * 
+ * @author Satisy Iyer
+ * @param {*} stockTicker 
+ */
 function getRecentNews(stockTicker) {
     
     const newsDiv = document.querySelector("#news-cell-card");
@@ -162,6 +191,7 @@ function getRecentNews(stockTicker) {
                 a[index] =document.createElement('a');
                 
                 a[index].setAttribute("href",newsData[index].url);
+                a[index].setAttribute("target", "_blank");
                 a[index].innerHTML = (newsData[index].text).substring(0,100)+'...';
                 
                 br[index] = document.createElement('br');
@@ -174,13 +204,17 @@ function getRecentNews(stockTicker) {
     })
 }
 
+/**
+ * API call to get the recent stock grades and pass to a render function
+ * @author Nate Irvin <irv0735@gmail.com>
+ * @param {String} ticker The ticker from local storage that the page was loaded based on 
+ */
 function getStockGrades(ticker) {
     fetch(baseStockUrl + "grade/" + ticker + '?limit=3&' +financialModelAPIKey)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
                 if (data) {
-                    console.log(data);
                     renderGrades(data);
                 }
                 else {
@@ -197,11 +231,19 @@ function getStockGrades(ticker) {
     });  
 }
 
+// Event listener for the return to main screen button
 document.querySelector("#return-home").addEventListener("click", function(event){
     document.location.replace("./index.html");
 })
 
+
 init();
+
+/**
+ * Interval function to make an API call for a short "real-time" quote that updates 
+ * every 2 seconds.
+ * @author Nate Irvin <irv0735@gmail.com>
+ */
 setInterval(function(){
     let newTicker = localStorage.getItem("ticker");
     fetch(baseStockUrl + "quote-short/" + newTicker + "?" + financialModelAPIKey)
