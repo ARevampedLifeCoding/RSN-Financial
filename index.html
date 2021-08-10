@@ -43,7 +43,6 @@
                 <tr>
                   <th>Company Name</th>
                   <th>Ticker/Symbol</th>
-                  <th class="small-delete">Currency</th>
                   <th class="small-delete">Exchange</th>
                   <th width="50"></th>
                   <th width="50"></th>
@@ -57,43 +56,104 @@
         </div>
         <div class="cell small-order-1 section-header" id="search-box">
           <h3>Search Terms</h3>
-          <form id="search-form">
-            <div class="grid-container">
-              <div class="grid-x grid-padding-x">
-                <div class="cell">
-                  <label
-                    >Company or Ticker:
-                    <input
-                      type="text"
-                      id="search-text"
-                      placeholder="Ex. Microsoft or MSFT"
-                    />
-                  </label>
+          <div class="grid-x">
+            <div class="cell large-6">
+              <form id="search-form">
+                <div class="grid-container">
+                  <div class="grid-x grid-padding-x">
+                    <div class="cell">
+                      <label>Company or Ticker:
+                        <input
+                          type="text"
+                          id="search-text"
+                          placeholder="Ex. Microsoft or MSFT"
+                        />
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label
+                        >Exchange:
+                        <select id="exchange-select">
+                          <option value="all">Not Specified</option>
+                          <option value="etf">ETF</option>
+                          <option value="mutual_fund">Mutual Fund</option>
+                          <option value="commodity">Commodity</option>
+                          <option value="index">Index</option>
+                          <option value="crypto">Crypto</option>
+                          <option value="forex">FOREX</option>
+                          <option value="tsx">TSX</option>
+                          <option value="amex">AMEX</option>
+                          <option value="nasdaq">NASDAQ</option>
+                          <option value="nyse">NYSE</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="cell custom-search">
+                      <button type="submit" class="secondary button custom-button">Search</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="cell">
-                  <label
-                    >Exchange:
-                    <select id="exchange-select">
-                      <option value="all">Not Specified</option>
-                      <option value="etf">ETF</option>
-                      <option value="mutual_fund">Mutual Fund</option>
-                      <option value="commodity">Commodity</option>
-                      <option value="index">Index</option>
-                      <option value="crypto">Crypto</option>
-                      <option value="forex">FOREX</option>
-                      <option value="tsx">TSX</option>
-                      <option value="amex">AMEX</option>
-                      <option value="nasdaq">NASDAQ</option>
-                      <option value="nyse">NYSE</option>
-                    </select>
-                  </label>
-                </div>
-                <div class="cell custom-search">
-                  <button type="submit" class="secondary button custom-button">Search</button>
-                </div>
-              </div>
+              </form>
             </div>
-          </form>
+            <div class="cell large-6">
+              <form id="screen-form">
+                <div class="grid-container">
+                  <div class="grid-x grid-padding-x">
+                    <div class="cell">
+                      <label>Market Cap:
+                        <input type="number" placeholder="Min" id="mc-min">
+                        <input type="number" placeholder="Max" id="mc-max">
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label>Price:
+                        <input type="number" placeholder="Min" id="price-min">
+                        <input type="number" placeholder="Max" id="price-max">
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label>Volume:
+                        <input type="number" placeholder="Min" id="volume-min">
+                        <input type="number" placeholder="Max" id="volume-max">
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label>Dividend:
+                        <input type="number" placeholder="Minimum" id="dividend-min">
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label>Sector:
+                        <select id="sector">
+                          <option value="">Not Specified</option>
+                          <option value="Energy">Energy</option>
+                          <option value="Technology">Tech</option>
+                          <option value="Financial">Financial</option>
+                          <option value="Healthcare">Healthcare</option>
+                          <option value="Real+Estate">Real Estate</option>
+                          <option value="Utilities">Utilities</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="cell">
+                      <label>Industry:
+                        <select id="industry">Industry:
+                          <option value="">Not Specified</option>
+                          <option value="autos">Autos</option>
+                          <option value="banks">Banks</option>
+                          <option value="software">Software</option>
+                          <option value="beverages+alocoholic">Beverages Alcoholic</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="cell custom-search">
+                      <button type="submit" class="secondary button custom-button">Stock Screener</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     
@@ -162,6 +222,25 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+
+    <div class="reveal" id="blank-screen" data-reveal>
+      <h1>Oopsie!</h1>
+      <p class="lead">You need to enter something into the screener.</p>
+      <p>Otherwise...we will just return the entire market!</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="reveal" id="invalid-screen" data-reveal>
+      <h1>Typo Check!</h1>
+      <p class="lead">Double check your screen parameters.</p>
+      <p>Please make sure to enter valid numbers only.</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
 
     <script
       src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"

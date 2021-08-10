@@ -154,13 +154,17 @@ li > span {
     margin-top: 10px;
 }
 
+#screen-form label {
+    color: white;
+}
+
 #search-box {
     border: solid rgb(1, 1, 56) 2px;
     border-radius: 8px;
     background-color: rgba(16, 61, 78, 0.753);
     margin: 15px;
     padding: 5px;
-    height: 300px;
+    /* height: 300px; */
 }
 
 #search-form label {
