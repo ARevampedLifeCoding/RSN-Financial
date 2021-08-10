@@ -263,7 +263,7 @@ function getMarketMovers(){
 
 /**
  * Adds selected stock to local storage, if it is not already present and then calls function to render
- * @author Randy Langston 
+ * @author Randy Langston <arevampedlifecoding@gmail.com>
  * @param {string} companyName 
  * @param {string} stockSymbol 
  */
