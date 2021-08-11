@@ -249,22 +249,22 @@ function stockSearch(searchTerm, exchangeChoice) {
 function stockScreener(mcMin, mcMax, pMin, pMax, vMin, vMax, divMin, sector, industry) {
     let url = baseStockUrl + "stock-screener?";
     if (mcMin) {
-        url = url + "marketCapMoreThan=" + mcMin + "&";
+        url = url + "marketCapMoreThan=" + mcMin*1000000 + "&";
     }
     if (mcMax) {
-        url = url + "marketCapLessThan=" + mcMax + "&";
+        url = url + "marketCapLowerThan=" + mcMax*1000000 + "&";
     }
     if (pMin) {
         url = url + "priceMoreThan=" + pMin + "&";
     }
     if (pMax) {
-        url = url + "priceLessThan=" + pMax + "&";
+        url = url + "priceLowerThan=" + pMax + "&";
     }
     if (vMin) {
-        url = url + "volumeMoreThan=" + vMin + "&";
+        url = url + "volumeMoreThan=" + vMin*1000 + "&";
     }
     if (vMax) {
-        url = url + "volumeLessThan=" + vMax + "&";
+        url = url + "volumeLowerThan=" + vMax*1000 + "&";
     }
     if (divMin) {
         url = url + "dividendMoreThan=" + divMin + "&";
@@ -275,13 +275,20 @@ function stockScreener(mcMin, mcMax, pMin, pMax, vMin, vMax, divMin, sector, ind
     if (industry !== "") {
         url = url + "industry=" + industry + "&";
     }
-    url = url + "limit=10" + financialModelAPIKey
+    url = url + "limit=12" + financialModelAPIKey
     fetch(url)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
-                sessionStorage.setItem("searchResults", JSON.stringify(data));
-                renderResults(data);
+                if (data.length == 0) {
+                    $("#no-screen").foundation('open');
+                    $('#no-screen').on("click", "button", function(event) {
+                        document.location = "./index.html"
+                    })
+                 } else {
+                    sessionStorage.setItem("searchResults", JSON.stringify(data));
+                    renderResults(data);
+                }
             });
         } else {
             console.log("Error" + response.statusText)

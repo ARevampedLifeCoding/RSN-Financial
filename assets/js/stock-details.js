@@ -214,8 +214,7 @@ function getRecentNews(stockTicker) {
         }
     })
     .then(function(newsData){ 
-        
-        if (newsData !== null) {
+        if (newsData.length !== 0) {
             for (let index = 0; index < 6; index++) {
                 newsLi[index] =  document.createElement('li');
                 a[index] =document.createElement('a');
@@ -229,6 +228,8 @@ function getRecentNews(stockTicker) {
                 newsDiv.append(newsLi[index]);
                 newsDiv.append(br[index]);
             }
+        } else {
+            newsDiv.innerHTML = "No News Available for this Commodity"
         }
     
     })
@@ -354,21 +355,20 @@ function getFinancialRatios(stockTicker){
     fetch(baseStockUrl + "ratios-ttm/" + stockTicker + "?" + financialModelAPIKey)
     .then(function(ratioResponse) {
         if (ratioResponse.ok) 
-        //  console.log(quoteResponse);    
         return ratioResponse.json();
         
     })
     .then(function (ratioData) {
-            // console.log(quoteData);
                 if (ratioData) {
-                    console.log(ratioData);
-                // shortQuote = quoteData[0].price.toFixed(2);
-                // console.log(shortQuote);
-                // return shortQuote;
-                    freeCashFlow.innerHTML = (ratioData[0].freeCashFlowPerShareTTM).toFixed(2);
-                    grossProfitMargin.innerHTML = (ratioData[0].grossProfitMarginTTM).toFixed(2);
-                    cashPerShare.innerHTML = (ratioData[0].cashPerShareTTM).toFixed(2);
+                    if (ratioData[0].freeCashFlowPerShareTTM) {
+                        freeCashFlow.innerHTML = (ratioData[0].freeCashFlowPerShareTTM).toFixed(2);
+                    }
+                    if (ratioData[0].grossProfitMarginTTM) {
+                        grossProfitMargin.innerHTML = (ratioData[0].grossProfitMarginTTM).toFixed(2);
+                    }
+                    if (ratioData[0].cashPerShareTTM) {
+                        cashPerShare.innerHTML = (ratioData[0].cashPerShareTTM).toFixed(2);
+                    }
                 }
             })
-
 }

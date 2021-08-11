@@ -58,6 +58,10 @@ li > span {
     justify-content: center;
 }
 
+.custom-header {
+    justify-content: center;
+}
+
 .custom-search {
     text-align: center;
 }
@@ -86,7 +90,6 @@ li > span {
 }
 
 #details-header {
-    display: flex;
     text-align: center;
     justify-content: space-between;
 }

@@ -102,25 +102,25 @@
                 <div class="grid-container">
                   <div class="grid-x grid-padding-x">
                     <div class="cell">
-                      <label>Market Cap:
+                      <label>Market Cap (Millions):
                         <input type="number" placeholder="Min" id="mc-min">
                         <input type="number" placeholder="Max" id="mc-max">
                       </label>
                     </div>
                     <div class="cell">
-                      <label>Price:
+                      <label>Price (per Share):
                         <input type="number" placeholder="Min" id="price-min">
                         <input type="number" placeholder="Max" id="price-max">
                       </label>
                     </div>
                     <div class="cell">
-                      <label>Volume:
+                      <label>Volume (Thousands):
                         <input type="number" placeholder="Min" id="volume-min">
                         <input type="number" placeholder="Max" id="volume-max">
                       </label>
                     </div>
                     <div class="cell">
-                      <label>Dividend:
+                      <label>Dividend (Last Annual):
                         <input type="number" placeholder="Minimum" id="dividend-min">
                       </label>
                     </div>
@@ -144,7 +144,6 @@
                           <option value="autos">Autos</option>
                           <option value="banks">Banks</option>
                           <option value="software">Software</option>
-                          <option value="beverages+alocoholic">Beverages Alcoholic</option>
                         </select>
                       </label>
                     </div>
@@ -236,6 +235,15 @@
       <h1>Oopsie!</h1>
       <p class="lead">You need to enter something into the screener.</p>
       <p>Otherwise...we will just return the entire market!</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="reveal" id="no-screen" data-reveal>
+      <h1>No Results Found!</h1>
+      <p class="lead">You may need to broaden your search.</p>
+      <p>Try increasing the max in some of the categories.</p>
       <button class="close-button" data-close aria-label="Close modal" type="button">
         <span aria-hidden="true">&times;</span>
       </button>
