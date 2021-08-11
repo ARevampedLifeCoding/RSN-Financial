@@ -11,6 +11,10 @@ body {
     min-height: 185px;
 }
 
+.card-divider {
+    font-weight: 500;
+}
+
 div > li {
     list-style-type: none;
     text-align: left;
@@ -105,7 +109,7 @@ li > span {
     color: navy;
 }
 
-#grades-card {
+#grades-card .card-section {
     font-size: .85rem;
 }
 
