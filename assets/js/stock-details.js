@@ -186,6 +186,7 @@ function applyNewCurrency(){
     dayLo.innerHTML = (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    priceChanges.innerHTML = (finData.change.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
 /**
