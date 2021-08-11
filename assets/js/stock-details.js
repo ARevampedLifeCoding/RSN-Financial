@@ -98,6 +98,14 @@ function renderData(data) {
     fiftyAverage.innerHTML = data.priceAvg50.toFixed(2);
     twoHundredAve.innerHTML = data.priceAvg200.toFixed(2);
     priceChanges.innerHTML =  data.change.toFixed(2); 
+    if (data.change.toFixed(2) > 0)
+    {
+        lastPrice.setAttribute("class","green");
+    }
+    else
+    {
+        lastPrice.setAttribute("class","red");
+    }
     percentChanges.innerHTML = data.changesPercentage.toFixed(2);
     openEl.innerHTML = data.open.toFixed(2);
     dayHi.innerHTML = data.dayHigh.toFixed(2);
@@ -188,6 +196,7 @@ function applyNewCurrency(){
         return
     } else {
         lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        lastPrice.setAttribute("data-currency",currency);
         fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
         twoHundredAve.innerHTML = (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
         dayHi.innerHTML = (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
@@ -195,6 +204,7 @@ function applyNewCurrency(){
         yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
         yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
         priceChanges.innerHTML = (finData.change.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        priceChanges.setAttribute("data-currency",currency);
         eps.innerHTML = (finData.eps.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
         marketCap.innerHTML = (finData.eps.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     }
