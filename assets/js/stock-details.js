@@ -20,6 +20,10 @@ const prefCurrency = document.querySelector("#currency");
 const exchangeRate = document.querySelector("#exchange-rate");
 const stockGrades = document.querySelector("#grade-data");
 const companyDescription = document.querySelector("#company-details");
+const freeCashFlow = document.querySelector("#freecashflow");
+const grossProfitMargin = document.querySelector("#grossprofitmargin");
+const cashPerShare = document.querySelector("#cashpershare");
+
 
 $(document).foundation();
 
@@ -52,6 +56,7 @@ function init(){
                     getRecentNews(ticker);
                     getStockGrades(ticker);
                     showHorizontalScoll();
+                    getFinancialRatios(ticker);
                 }
                 else {
                     console.log("invalid data returned");
@@ -87,7 +92,7 @@ function init(){
  */
 function renderData(data) {
     finData = data;
-    console.log(data);
+    // console.log(data);
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML =  data.price.toFixed(2);
@@ -319,12 +324,12 @@ async function showHorizontalScoll()
     var tickerPriceAray =[];
     var tickerText ="Real time price of stocks in your list: ";
     
-   console.log(newTicker);
+//    console.log(newTicker);
 
     for (let index = 0; index < newTicker.length; index++) {
           tickerPriceAray[index] = await fetchLatestPrice(newTicker[index].symbol);
         tickerText += newTicker[index].symbol + ": " + tickerPriceAray[index] + " "
-         console.log(tickerText);
+        //  console.log(tickerText);
     }
 
     tickerTextEl.textContent = tickerText;
@@ -346,11 +351,35 @@ var shortQuote = "";
                 if (quoteData) {
 
                 shortQuote = quoteData[0].price.toFixed(2);
-                console.log(shortQuote);
+                // console.log(shortQuote);
                 return shortQuote;
                 }
             })
 
 // console.log("outside of promise " + shortQuote);
 // return shortQuote;
+}
+
+function getFinancialRatios(stockTicker){
+    
+    fetch(baseStockUrl + "ratios-ttm/" + stockTicker + "?" + financialModelAPIKey)
+    .then(function(ratioResponse) {
+        if (ratioResponse.ok) 
+        //  console.log(quoteResponse);    
+        return ratioResponse.json();
+        
+    })
+    .then(function (ratioData) {
+            // console.log(quoteData);
+                if (ratioData) {
+                    console.log(ratioData);
+                // shortQuote = quoteData[0].price.toFixed(2);
+                // console.log(shortQuote);
+                // return shortQuote;
+                    freeCashFlow.innerHTML = (ratioData[0].freeCashFlowPerShareTTM).toFixed(2);
+                    grossProfitMargin.innerHTML = (ratioData[0].grossProfitMarginTTM).toFixed(2);
+                    cashPerShare.innerHTML = (ratioData[0].cashPerShareTTM).toFixed(2);
+                }
+            })
+
 }
