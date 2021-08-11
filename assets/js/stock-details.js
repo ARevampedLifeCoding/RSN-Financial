@@ -8,7 +8,7 @@ const priceChanges = document.querySelector("#price-changes")
 const percentChanges = document.querySelector("#percent-changes")
 const addToList = document.querySelector("#add-to-list")
 const tickerTextEl = document.querySelector(".ticker-item");
-
+const openEl = document.querySelector("#open")
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
 const yearHi = document.querySelector("#year-hi")
@@ -95,6 +95,7 @@ function renderData(data) {
     twoHundredAve.innerHTML = data.priceAvg200.toFixed(2);
     priceChanges.innerHTML =  data.change.toFixed(2); 
     percentChanges.innerHTML = data.changesPercentage.toFixed(2);
+    openEl.innerHTML = data.open.toFixed(2);
     dayHi.innerHTML = data.dayHigh.toFixed(2);
     dayLo.innerHTML = data.dayLow.toFixed(2);
     yearHi.innerHTML = data.yearHigh.toFixed(2);
