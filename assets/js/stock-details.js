@@ -87,6 +87,7 @@ function init(){
  */
 function renderData(data) {
     finData = data;
+    console.log(data);
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML =  data.price.toFixed(2);
@@ -104,7 +105,7 @@ function renderData(data) {
     if (data.pe) {
         peRatio.innerHTML = data.pe.toFixed(2);
     }
-    if (data.marketcap) {
+    if (data.marketCap) {
         marketCap.innerHTML = (data.marketCap/1000000).toFixed(3) + " Million";
     }
 }
