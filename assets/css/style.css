@@ -171,7 +171,7 @@ li > span {
 }
 
 #results-box {
-    border: solid black 2px;
+    border: solid rgb(90, 89, 89) 2px;
     background-color:rgba(169, 169, 169, 0.616);
     border-radius: 8px;
     margin: 15px;

@@ -131,6 +131,7 @@ function renderYourList() {
                 watchListArray.splice(i, 1);
                 localStorage.setItem("yourList", JSON.stringify(watchListArray));
                 renderYourList()
+                showHorizontalScoll()
             }
         }
     })
@@ -376,6 +377,7 @@ function init() {
     }
     renderYourList();
     getMarketMovers();
+    showHorizontalScoll();
 }
 
 /**
@@ -422,6 +424,34 @@ searchForm.addEventListener("submit", function(event) {
         })
     }  
 })
+
+async function showHorizontalScoll()
+{
+    const tickerArray = JSON.parse(localStorage.getItem("yourList"));
+    let tickerPriceArray =[];
+    let tickerText ="Real time price of stocks in your list: ";
+    for (let index = 0; index < tickerArray.length; index++) {
+        tickerPriceArray[index] = await fetchLatestPrice(tickerArray[index].symbol);
+        tickerText += tickerArray[index].symbol + ": " + tickerPriceArray[index] + " "
+    }
+    document.querySelector(".ticker-item").textContent = tickerText;
+}
+
+function fetchLatestPrice(stockTicker){
+ return fetch(baseStockUrl + "quote-short/" + stockTicker + "?" + financialModelAPIKey)
+    .then(function(quoteResponse) {
+        if (quoteResponse.ok) 
+        return quoteResponse.json();
+    })
+    .then(function (quoteData) {
+        if (quoteData) {
+        let shortQuote = quoteData[0].price.toFixed(2);
+        return shortQuote;
+        }
+    })
+}
+
+
 
 /**
  * Adjust classes based on window size for responsive adjustments
