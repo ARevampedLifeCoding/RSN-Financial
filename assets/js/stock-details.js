@@ -73,10 +73,10 @@ function init(){
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
-                if (data) {
+                if (data.length != 0) {
                     companyDescription.innerHTML = data[0].description
                 } else {
-                    console.log("invalid data returned");
+                    companyDescription.innerHTML = "No description available for this selection."
                 }
             });
         } else {
@@ -92,7 +92,6 @@ function init(){
  */
 function renderData(data) {
     finData = data;
-    // console.log(data);
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML =  data.price.toFixed(2);
@@ -184,14 +183,21 @@ prefCurrency.addEventListener('change', function(){
  * @author Satish Iyer
  */
 function applyNewCurrency(){
-    lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
-    twoHundredAve.innerHTML = (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
-    dayHi.innerHTML = (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    dayLo.innerHTML = (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
-    priceChanges.innerHTML = (finData.change.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    if (finData.exchange == "FOREX" || finData.exchange == "CRYPTO") {
+        document.querySelector("#exchange-rate").innerHTML = "Exchange Rate not applicaple for FOREX or CRYPTO"
+        return
+    } else {
+        lastPrice.textContent = (finData.price.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        fiftyAverage.innerHTML = (finData.priceAvg50.toFixed(2)* currencyMultiplier.toFixed(2)).toFixed(2) ;
+        twoHundredAve.innerHTML = (finData.priceAvg200.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2) ;
+        dayHi.innerHTML = (finData.dayHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        dayLo.innerHTML = (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        priceChanges.innerHTML = (finData.change.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        eps.innerHTML = (finData.eps.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+        marketCap.innerHTML = (finData.eps.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    }
 }
 
 /**
@@ -214,8 +220,7 @@ function getRecentNews(stockTicker) {
         }
     })
     .then(function(newsData){ 
-        
-        if (newsData !== null) {
+        if (newsData.length !== 0) {
             for (let index = 0; index < 6; index++) {
                 newsLi[index] =  document.createElement('li');
                 a[index] =document.createElement('a');
@@ -229,6 +234,8 @@ function getRecentNews(stockTicker) {
                 newsDiv.append(newsLi[index]);
                 newsDiv.append(br[index]);
             }
+        } else {
+            newsDiv.innerHTML = "No news available for this selection."
         }
     
     })
@@ -354,21 +361,20 @@ function getFinancialRatios(stockTicker){
     fetch(baseStockUrl + "ratios-ttm/" + stockTicker + "?" + financialModelAPIKey)
     .then(function(ratioResponse) {
         if (ratioResponse.ok) 
-        //  console.log(quoteResponse);    
         return ratioResponse.json();
         
     })
     .then(function (ratioData) {
-            // console.log(quoteData);
                 if (ratioData) {
-                    console.log(ratioData);
-                // shortQuote = quoteData[0].price.toFixed(2);
-                // console.log(shortQuote);
-                // return shortQuote;
-                    freeCashFlow.innerHTML = (ratioData[0].freeCashFlowPerShareTTM).toFixed(2);
-                    grossProfitMargin.innerHTML = (ratioData[0].grossProfitMarginTTM).toFixed(2);
-                    cashPerShare.innerHTML = (ratioData[0].cashPerShareTTM).toFixed(2);
+                    if (ratioData[0].freeCashFlowPerShareTTM) {
+                        freeCashFlow.innerHTML = (ratioData[0].freeCashFlowPerShareTTM).toFixed(2);
+                    }
+                    if (ratioData[0].grossProfitMarginTTM) {
+                        grossProfitMargin.innerHTML = (ratioData[0].grossProfitMarginTTM).toFixed(2);
+                    }
+                    if (ratioData[0].cashPerShareTTM) {
+                        cashPerShare.innerHTML = (ratioData[0].cashPerShareTTM).toFixed(2);
+                    }
                 }
             })
-
 }

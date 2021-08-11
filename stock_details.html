@@ -32,14 +32,20 @@
         <button class="primary button custom-button-nav" id="add-to-list">+ Your List</button>
     </nav>
     <header id="details-header">
-        
-        <!-- Dynamically Update the H3 based on the stock being viewed -->
-        <h3 id="stock-reference"></h3>
-        <h3 id="real-time">Current Price (USD): <span id="real-time-span"></span></h3>
-        <h4 id="exchange"></h4>
-        <!-- <label for="currency">Choose a currency:</label> -->
-
-        
+        <div class="grid-x grid-margin-x">
+            <!-- Dynamically update per Stock -->
+            <div class="cell large-4">
+                <h3 id="stock-reference"></h3>
+            </div>
+            <div class="cell large-8">
+                <div class="grid-x custom-header">
+                    <h3 id="real-time">Current Price (USD): <span id="real-time-span"></span></h3>
+                </div>
+                <div class="grid-x custom-header">
+                    <h4 id="exchange"></h4>
+                </div>
+            </div>
+        </div>       
     </header>
     
     <div class="grid-container fluid">
@@ -52,7 +58,7 @@
                 <option value="CAD">Canadian Dollar</option>
                 </select>
                 <!-- dynamically update h2 with exchange rate vs USD -->
-                <h6 id="exchange-rate">Exchange rate goes here</h2>
+                <h6 id="exchange-rate">Exchange rate:</h2>
             </div>
         </div>
 
