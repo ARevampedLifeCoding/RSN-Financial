@@ -317,21 +317,17 @@ setInterval(function(){
     });
 },2000);
 
+
 async function showHorizontalScoll()
 {
     var newTicker = JSON.parse(localStorage.getItem("yourList"));
-    // console.log(newTicker);
     var tickerPriceAray =[];
     var tickerText ="Real time price of stocks in your list: ";
-    
-//    console.log(newTicker);
 
     for (let index = 0; index < newTicker.length; index++) {
           tickerPriceAray[index] = await fetchLatestPrice(newTicker[index].symbol);
         tickerText += newTicker[index].symbol + ": " + tickerPriceAray[index] + " "
-        //  console.log(tickerText);
     }
-
     tickerTextEl.textContent = tickerText;
     
 }
@@ -342,22 +338,15 @@ var shortQuote = "";
  return fetch(baseStockUrl + "quote-short/" + stockTicker + "?" + financialModelAPIKey)
     .then(function(quoteResponse) {
         if (quoteResponse.ok) 
-        //  console.log(quoteResponse);    
         return quoteResponse.json();
         
     })
     .then(function (quoteData) {
-            // console.log(quoteData);
-                if (quoteData) {
-
-                shortQuote = quoteData[0].price.toFixed(2);
-                // console.log(shortQuote);
-                return shortQuote;
-                }
-            })
-
-// console.log("outside of promise " + shortQuote);
-// return shortQuote;
+        if (quoteData) {
+        shortQuote = quoteData[0].price.toFixed(2);
+        return shortQuote;
+        }
+    })
 }
 
 function getFinancialRatios(stockTicker){
