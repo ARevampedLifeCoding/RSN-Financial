@@ -7,6 +7,7 @@ const twoHundredAve = document.querySelector("#two-hun-ave")
 const priceChanges = document.querySelector("#price-changes")
 const percentChanges = document.querySelector("#percent-changes")
 const addToList = document.querySelector("#add-to-list")
+const tickerTextEl = document.querySelector(".ticker-item");
 
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
@@ -50,6 +51,7 @@ function init(){
                     renderData(data[0]);
                     getRecentNews(ticker);
                     getStockGrades(ticker);
+                    showHorizontalScoll();
                 }
                 else {
                     console.log("invalid data returned");
@@ -306,3 +308,46 @@ setInterval(function(){
         console.log("Unable to connect to financial model" + error);
     });
 },2000);
+
+async function showHorizontalScoll()
+{
+    var newTicker = JSON.parse(localStorage.getItem("yourList"));
+    // console.log(newTicker);
+    var tickerPriceAray =[];
+    var tickerText ="Real time price of stocks in your list: ";
+    
+   console.log(newTicker);
+
+    for (let index = 0; index < newTicker.length; index++) {
+          tickerPriceAray[index] = await fetchLatestPrice(newTicker[index].symbol);
+        tickerText += newTicker[index].symbol + ": " + tickerPriceAray[index] + " "
+         console.log(tickerText);
+    }
+
+    tickerTextEl.textContent = tickerText;
+    
+}
+
+function fetchLatestPrice(stockTicker){
+var shortQuote = "";
+
+ return fetch(baseStockUrl + "quote-short/" + stockTicker + "?" + financialModelAPIKey)
+    .then(function(quoteResponse) {
+        if (quoteResponse.ok) 
+        //  console.log(quoteResponse);    
+        return quoteResponse.json();
+        
+    })
+    .then(function (quoteData) {
+            // console.log(quoteData);
+                if (quoteData) {
+
+                shortQuote = quoteData[0].price.toFixed(2);
+                console.log(shortQuote);
+                return shortQuote;
+                }
+            })
+
+// console.log("outside of promise " + shortQuote);
+// return shortQuote;
+}
