@@ -226,6 +226,30 @@ li > span {
     padding: 5px;
 }
 
+[data-currency="USD"]::after {
+content: "\0024";
+}
+
+[data-currency="EUR"]::after {
+    content: "\20AC";
+}
+
+[data-currency="JPY"]::after {
+    content: "\00A5";
+}
+
+[data-currency="CAD"]::after {
+    content: "C\0024";
+}
+
+.green {
+    color: green;
+}
+
+.red{
+    color: red;
+}
+
 .ticker-wrap {
     overflow: hidden; /* HIDE SCROLL BAR */
 }
