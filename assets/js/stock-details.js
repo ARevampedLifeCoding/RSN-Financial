@@ -8,7 +8,7 @@ const priceChanges = document.querySelector("#price-changes")
 const percentChanges = document.querySelector("#percent-changes")
 const addToList = document.querySelector("#add-to-list")
 const tickerTextEl = document.querySelector(".ticker-item");
-
+const openEl = document.querySelector("#open")
 const dayHi = document.querySelector("#day-hi")
 const dayLo = document.querySelector("#day-lo")
 const yearHi = document.querySelector("#year-hi")
@@ -87,6 +87,7 @@ function init(){
  */
 function renderData(data) {
     finData = data;
+    console.log(data);
     stockReference.innerHTML = data.name + " / " + data.symbol;
     exchange.innerHTML = data.exchange;
     lastPrice.innerHTML =  data.price.toFixed(2);
@@ -94,6 +95,7 @@ function renderData(data) {
     twoHundredAve.innerHTML = data.priceAvg200.toFixed(2);
     priceChanges.innerHTML =  data.change.toFixed(2); 
     percentChanges.innerHTML = data.changesPercentage.toFixed(2);
+    openEl.innerHTML = data.open.toFixed(2);
     dayHi.innerHTML = data.dayHigh.toFixed(2);
     dayLo.innerHTML = data.dayLow.toFixed(2);
     yearHi.innerHTML = data.yearHigh.toFixed(2);
@@ -104,7 +106,7 @@ function renderData(data) {
     if (data.pe) {
         peRatio.innerHTML = data.pe.toFixed(2);
     }
-    if (data.marketcap) {
+    if (data.marketCap) {
         marketCap.innerHTML = (data.marketCap/1000000).toFixed(3) + " Million";
     }
 }
@@ -184,11 +186,12 @@ function applyNewCurrency(){
     dayLo.innerHTML = (finData.dayLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     yearHi.innerHTML = (finData.yearHigh.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
     yearLo.innerHTML = (finData.yearLow.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
+    priceChanges.innerHTML = (finData.change.toFixed(2) * currencyMultiplier.toFixed(2)).toFixed(2);
 }
 
 /**
  * 
- * @author Satisy Iyer
+ * @author Satish Iyer
  * @param {*} stockTicker 
  */
 function getRecentNews(stockTicker) {
@@ -208,7 +211,7 @@ function getRecentNews(stockTicker) {
     .then(function(newsData){ 
         
         if (newsData !== null) {
-            for (let index = 0; index < newsData.length; index++) {
+            for (let index = 0; index < 6; index++) {
                 newsLi[index] =  document.createElement('li');
                 a[index] =document.createElement('a');
                 
