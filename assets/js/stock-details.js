@@ -190,7 +190,7 @@ function applyNewCurrency(){
 
 /**
  * 
- * @author Satisy Iyer
+ * @author Satish Iyer
  * @param {*} stockTicker 
  */
 function getRecentNews(stockTicker) {
@@ -210,7 +210,7 @@ function getRecentNews(stockTicker) {
     .then(function(newsData){ 
         
         if (newsData !== null) {
-            for (let index = 0; index < newsData.length; index++) {
+            for (let index = 0; index < 6; index++) {
                 newsLi[index] =  document.createElement('li');
                 a[index] =document.createElement('a');
                 
