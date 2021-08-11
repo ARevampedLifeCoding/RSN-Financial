@@ -279,6 +279,7 @@ function stockScreener(mcMin, mcMax, pMin, pMax, vMin, vMax, divMin, sector, ind
     .then(function(response) {
         if (response.ok) {
             response.json().then(function (data) {
+                sessionStorage.setItem("searchResults", JSON.stringify(data));
                 renderResults(data);
             });
         } else {
