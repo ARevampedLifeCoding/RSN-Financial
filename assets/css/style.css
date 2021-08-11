@@ -226,32 +226,33 @@ li > span {
     padding: 5px;
 }
 
-.ticket-wrap {
+.ticker-wrap {
     overflow: hidden; /* HIDE SCROLL BAR */
-    background: #eee;
-  }
-   
-  /* (B) MOVING TICKER WRAPPER */
-  .ticker-move { display: flex; }
-  
-  /* (C) ITEMS - INTO A LONG HORIZONTAL ROW */
-  .ticker-item {
-    flex-shrink: 0;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    color: white;
-    text-align: center;
-  }
-   
-  /* (D) ANIMATION - MOVE ITEMS FROM RIGHT TO LEFT */
-  /* 4 ITEMS -400%, CHANGE THIS IF YOU ADD/REMOVE ITEMS */
-  @keyframes tickeranimate {
-    0% { transform: translate3d(100%, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
-  }
-  .ticker-move { animation: tickeranimate linear 30s infinite; }
-  .ticker-move:hover { animation-play-state: paused; }
+}
+
+/* (B) MOVING TICKER WRAPPER */
+.ticker-move { display: flex; }
+
+/* (C) ITEMS - INTO A LONG HORIZONTAL ROW */
+.ticker-item {
+flex-shrink: 0;
+width: 100%;
+box-sizing: border-box;
+padding: 10px;
+font-weight: 600;
+font-size: 1.25rem;
+color: white;
+text-align: center;
+}
+
+/* (D) ANIMATION - MOVE ITEMS FROM RIGHT TO LEFT */
+/* 4 ITEMS -400%, CHANGE THIS IF YOU ADD/REMOVE ITEMS */
+@keyframes tickeranimate {
+0% { transform: translate3d(100%, 0, 0); }
+100% { transform: translate3d(-100%, 0, 0); }
+}
+.ticker-move { animation: tickeranimate linear 30s infinite; }
+.ticker-move:hover { animation-play-state: paused; }
 
 @media screen and (max-width: 1024px) {
     #screen-form {
