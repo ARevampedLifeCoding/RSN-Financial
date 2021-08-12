@@ -11,7 +11,7 @@ Use our stock search tool to search trough all the available stocks. Then you wi
 
 ### Link to live Deployment
 
-- https://arevampedlifecoding.github.io/project-1/
+- https://arevampedlifecoding.github.io/RSN-Financial/
 
 ### Our CSS Frame work
 
