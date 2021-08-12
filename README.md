@@ -7,6 +7,7 @@ We have built a stock selector that will allow you to chose a stock with the mos
 Use our stock search tool to search trough all the available stocks. Then you will have the option to add the stock to your list or you can look at more. This is where you would change the currency to your preference.
 <img src="./assets/img/rsn-1.png">
 <img src="./assets/img/rsn-2.png">
+<img src="./assets/img/rsn-3.png">
 
 ### Link to live Deployment
 
