@@ -41,6 +41,7 @@ function renderResults(matchingResults){
         }
         newTr.appendChild(tdName);
         let tdSymbol = document.createElement("td");
+        tdSymbol.setAttribute("class", "small-delete");
         tdSymbol.textContent = element.symbol;
         newTr.appendChild(tdSymbol);
         let tdExchange = document.createElement("td");
@@ -98,6 +99,7 @@ function renderYourList() {
         let tr = document.createElement("tr")
         let tdName = document.createElement("td")
         let tdSymbol = document.createElement("td")
+        tdSymbol.setAttribute("class", "small-delete")
         let tdMore = document.createElement("td");
         tdMore.setAttribute("class", "more-info");
         let moreBtn = document.createElement("button");
