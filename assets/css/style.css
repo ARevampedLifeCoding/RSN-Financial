@@ -288,6 +288,10 @@ text-align: center;
     .small-delete {
         display: none;
     }
+    #homepage-header {
+        padding: 0px;
+        font-size: 4rem;
+    }
 }
 
 
